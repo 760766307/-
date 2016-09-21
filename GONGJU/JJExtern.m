@@ -32,7 +32,7 @@ static JJExtern *jj = nil;
 //                        //                @"username"   :@"15932426654",
             //                        @"username"   :@"15203285277",
 //                        @"pwd"        :@"123456"};
-            [self cehuaViewController];
+//            [self cehuaViewController];
             
             _userid = [[NSUserDefaults standardUserDefaults] objectForKey:@"userid"];
             _username = [[NSUserDefaults standardUserDefaults] objectForKey:@"username"];
@@ -59,20 +59,21 @@ static JJExtern *jj = nil;
         return nil;
     }
 }
-
-- (void)cehuaViewController{
-//    JJCehuaController *mainVC = [[JJCehuaController alloc] init];
-//    _mainNavigationController = [[UINavigationController alloc] initWithRootViewController:mainVC];
-    
-    
-    _tabbarController = [[JJTabbarController alloc] init];
-    
-    
-    
-    LeftSortsViewController *leftVC = [[LeftSortsViewController alloc] init];
-//    _LeftSlideVC = [[LeftSlideViewController alloc] initWithLeftView:leftVC andMainView:_mainNavigationController];
-    _LeftSlideVC = [[LeftSlideViewController alloc] initWithLeftView:leftVC andMainView:_tabbarController];
-}
+//
+//- (void)cehuaViewController{
+////    JJCehuaController *mainVC = [[JJCehuaController alloc] init];
+////    _mainNavigationController = [[UINavigationController alloc] initWithRootViewController:mainVC];
+//    
+//    
+//    _tabbarController = [[JJTabbarController alloc] init];
+//    UIViewController *controller = [[UIViewController alloc] init];
+//    controller.view = _tabbarController.view;
+//    
+//    
+//    LeftSortsViewController *leftVC = [[LeftSortsViewController alloc] init];
+////    _LeftSlideVC = [[LeftSlideViewController alloc] initWithLeftView:leftVC andMainView:_mainNavigationController];
+//    _LeftSlideVC = [[LeftSlideViewController alloc] initWithLeftView:leftVC andMainView:controller];
+//}
 
 
 

@@ -8,13 +8,13 @@
 //http://www.oschina.net/ios/codingList/413/ios-menu
 #import <Foundation/Foundation.h>
 
-#import "LeftSlideViewController.h"
+//#import "LeftSlideViewController.h"
 //#import "MainPageViewController.h"
 #import "JJTabbarController.h"
 
 
-#import "JJCehuaController.h"
-#import "LeftSortsViewController.h"
+//#import "JJCehuaController.h"
+//#import "LeftSortsViewController.h"
 
 
 #define SIZE [UIScreen mainScreen].bounds.size
@@ -36,7 +36,7 @@
 
 
 
-@property (strong, nonatomic) LeftSlideViewController *LeftSlideVC;
+//@property (strong, nonatomic) LeftSlideViewController *LeftSlideVC;
 //@property (strong, nonatomic) UINavigationController *mainNavigationController;
 @property (strong, nonatomic) JJTabbarController *tabbarController;
 

@@ -42,7 +42,7 @@ UITableViewDataSource
 //    NavigationType
     
     
-    self.title = @"主界面";
+//    self.title = @"主界面";
     
     
     UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu"] style:UIBarButtonItemStyleDone target:self action:@selector(leftBarButtonItemClick:)];
@@ -61,11 +61,11 @@ UITableViewDataSource
 - (void)leftBarButtonItemClick:(UIBarButtonItem *)barButtonItem{
     
     
-    if ([JJExtern sharedJJ].LeftSlideVC.closed){
-        [[JJExtern sharedJJ].LeftSlideVC openLeftView];
-    }else{
-        [[JJExtern sharedJJ].LeftSlideVC closeLeftView];
-    }
+//    if ([JJExtern sharedJJ].LeftSlideVC.closed){
+//        [[JJExtern sharedJJ].LeftSlideVC openLeftView];
+//    }else{
+//        [[JJExtern sharedJJ].LeftSlideVC closeLeftView];
+//    }
 }
 
 

@@ -41,7 +41,7 @@ UITableViewDataSource
 //    NavigationType
 // Do any additional setup after loading the view.
     UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu"] style:UIBarButtonItemStyleDone target:self action:@selector(leftBarButtonItemClick:)];
-//    self.navigationItem.leftBarButtonItem = leftBarButtonItem;
+    self.navigationItem.leftBarButtonItem = leftBarButtonItem;
     
     [self createData];
     [self createUI];
@@ -49,11 +49,11 @@ UITableViewDataSource
 
 
 - (void)leftBarButtonItemClick:(UIBarButtonItem *)barButtonItem{
-    if ([JJExtern sharedJJ].LeftSlideVC.closed){
-        [[JJExtern sharedJJ].LeftSlideVC openLeftView];
-    }else{
-        [[JJExtern sharedJJ].LeftSlideVC closeLeftView];
-    }
+//    if ([JJExtern sharedJJ].LeftSlideVC.closed){
+//        [[JJExtern sharedJJ].LeftSlideVC openLeftView];
+//    }else{
+//        [[JJExtern sharedJJ].LeftSlideVC closeLeftView];
+//    }
 }
 
 - (void)createData{

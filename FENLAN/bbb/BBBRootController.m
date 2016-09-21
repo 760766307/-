@@ -114,11 +114,11 @@ UISearchBarDelegate
 
 
 - (void)leftBarButtonItemClick:(UIBarButtonItem *)barButtonItem{
-    if ([JJExtern sharedJJ].LeftSlideVC.closed){
-        [[JJExtern sharedJJ].LeftSlideVC openLeftView];
-    }else{
-        [[JJExtern sharedJJ].LeftSlideVC closeLeftView];
-    }
+//    if ([JJExtern sharedJJ].LeftSlideVC.closed){
+//        [[JJExtern sharedJJ].LeftSlideVC openLeftView];
+//    }else{
+//        [[JJExtern sharedJJ].LeftSlideVC closeLeftView];
+//    }
 }
 
 
