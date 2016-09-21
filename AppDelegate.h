@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
+@property (strong, nonatomic) LeftSlideViewController *LeftSlideVC;
+@property (strong, nonatomic) UINavigationController *mainNavigationController;
 
 @end
 

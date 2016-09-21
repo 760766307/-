@@ -1,0 +1,49 @@
+//
+//  Header.h
+//  请假APP
+//
+//  Created by 杨剑 on 16/9/6.
+//  Copyright © 2016年 杨剑. All rights reserved.
+//
+
+#ifndef Header_h
+#define Header_h
+
+#import <QuickLook/QuickLook.h>
+
+#import "JJExtern.h"
+#import "AFNetworking.h"
+#import "AFImageDownloader.h"
+#import "UIImage+AFNetworking.h"
+
+#import "UIViewController+HUD.h"
+
+
+#import "JJDownload.h"
+
+#define IMAGES @[[UIImage imageNamed:@"giffangkuai1"],[UIImage imageNamed:@"giffangkuai2"],[UIImage imageNamed:@"giffangkuai3"],[UIImage imageNamed:@"giffangkuai4"],[UIImage imageNamed:@"giffangkuai5"],[UIImage imageNamed:@"giffangkuai6"],[UIImage imageNamed:@"giffangkuai7"],[UIImage imageNamed:@"giffangkuai8"],[UIImage imageNamed:@"giffangkuai9"],[UIImage imageNamed:@"giffangkuai10"],[UIImage imageNamed:@"giffangkuai11"],[UIImage imageNamed:@"giffangkuai12"],[UIImage imageNamed:@"giffangkuai13"],[UIImage imageNamed:@"giffangkuai14"],[UIImage imageNamed:@"giffangkuai15"],[UIImage imageNamed:@"giffangkuai16"],[UIImage imageNamed:@"giffangkuai17"],[UIImage imageNamed:@"giffangkuai18"],[UIImage imageNamed:@"giffangkuai19"],[UIImage imageNamed:@"giffangkuai20"],[UIImage imageNamed:@"giffangkuai21"],[UIImage imageNamed:@"giffangkuai22"],[UIImage imageNamed:@"giffangkuai23"],[UIImage imageNamed:@"giffangkuai24"],[UIImage imageNamed:@"giffangkuai25"],[UIImage imageNamed:@"giffangkuai26"],[UIImage imageNamed:@"giffangkuai27"],[UIImage imageNamed:@"giffangkuai28"]]
+
+
+#define NavigationType self.navigationController.navigationBar.tintColor = [UIColor whiteColor];self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.83f green:0.89f blue:0.72f alpha:1.00f];[self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:18],NSForegroundColorAttributeName:[UIColor whiteColor]}];
+
+
+//[UIColor colorWithRed:0.35f green:0.68f blue:0.72f alpha:1.00f]
+#define NavigationText self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.35f green:0.68f blue:0.72f alpha:1.00f];[self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:18],NSForegroundColorAttributeName:[UIColor colorWithRed:0.35f green:0.68f blue:0.72f alpha:1.00f]}];
+
+#endif /* Header_h */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

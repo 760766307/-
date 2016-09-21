@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  JJCehuaController.h
 //  鑫考报修
 //
 //  Created by 杨剑 on 16/9/21.
@@ -8,14 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-
-#import "JJCehuaController.h"
-
-
-
-
-@interface ViewController : UIViewController
-
+@interface JJCehuaController : UIViewController
 
 @end
-
