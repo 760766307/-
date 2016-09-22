@@ -5,41 +5,16 @@
 //  Created by 杨剑 on 16/9/21.
 //  Copyright © 2016年 贱贱. All rights reserved.
 //
-//
-
-
 
 #import "ViewController.h"
-#import "LLSlideMenu.h"
-
-
-#define SLIDEMENU_WIDTH 200.f
-
+#define XIA 30
 
 @interface ViewController ()
-<
-UITableViewDelegate,
-UITableViewDataSource
->
 {
-    
-    UIImageView *_headImageView;
-    UILabel *_nameLabel;
-    
-    
-    NSMutableArray *_slideMenuDataArray;
-
-    UITableView *_slideMenuTableView;
-    
-    
-    
+    //    UITextField *_changeTextField;
+    UITextField *_zhanghaoTextField;
+    UITextField *_mimaTextField;
 }
-
-@property (nonatomic, strong) LLSlideMenu *slideMenu;
-
-// 全屏侧滑手势
-@property (nonatomic, strong) UIPanGestureRecognizer *leftSwipe;
-@property (nonatomic, strong) UIPercentDrivenInteractiveTransition *percent;
 
 @end
 
@@ -47,240 +22,332 @@ UITableViewDataSource
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // 初始化
-    
+    // Do any additional setup after loading the view, typically from a nib.
     self.view.backgroundColor = BAISE;
-    
-//    self.view.frame.size.width;
-    [self createCehuaUI];
-    
-    
-    
-    
-    
-    
-    
-    
+    [self createUI];
     
 }
 
-- (IBAction)leftBarButtonItemClick:(UIBarButtonItem *)sender {
-    //===================
-    // 按钮监听
-    //===================
-    //===================
-    // 打开菜单
-    //===================
-    if (_slideMenu.ll_isOpen) {
-        [_slideMenu ll_closeSlideMenu];
-    } else {
-        [_slideMenu ll_openSlideMenu];
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    //    _changeTextField.text = [JJExtern sharedJJ].schoolname;
+    _zhanghaoTextField.text = [JJExtern sharedJJ].username;
+    _mimaTextField.text = [JJExtern sharedJJ].userpassword;
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    if ([JJExtern sharedJJ].        userid.length
+        && !([JJExtern sharedJJ].   userid          == NULL)
+        && !([JJExtern sharedJJ].   schoolURLString == NULL)
+        && [JJExtern sharedJJ].     username.length
+        && !([JJExtern sharedJJ].   username        == NULL)
+        && [JJExtern sharedJJ].     userpassword.length
+        && !([JJExtern sharedJJ].   userpassword    == NULL)) {
+        NSLog(@"%@",[JJExtern sharedJJ].schoolURLString);
+        NSLog(@"%@",[JJExtern sharedJJ].userid);
+        [self logInWithZhanghao:[JJExtern sharedJJ].username andMima:[JJExtern sharedJJ].userpassword andHUDString:@"自动登录..."];
     }
-  
+}
+
+- (void)createUI{
+    
+    
+    UIImageView *backgroundImageView = [[UIImageView alloc] init];
+    backgroundImageView.frame = CGRectMake(0, 0, SIZE.width, SIZE.height + 40);
+    backgroundImageView.image = [UIImage imageNamed:@"shatan"];
+    //    backgroundImageView.image = [UIImage imageNamed:@"shatan"];
+    [self.view addSubview:backgroundImageView];
+    
+    
+    //    // 设定位置和大小
+    //    CGRect frame = CGRectMake(0,20,SIZE.width,SIZE.height);
+    //    // 读取gif图片数据
+    //    NSData *gif = [NSData dataWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"wangli" ofType:@"gif"]];
+    //    // view生成
+    //    UIWebView *webView = [[UIWebView alloc] initWithFrame:frame];
+    //    webView.userInteractionEnabled = NO;//用户不可交互
+    //    [webView loadData:gif MIMEType:@"image/gif" textEncodingName:@"" baseURL:[NSURL URLWithString:@""]];
+    //    [self.view addSubview:webView];
+    
+    
+    
+    UIImageView *titleImageView = [[UIImageView alloc] init];
+    titleImageView.frame = CGRectMake((SIZE.width - 320) / 2, 50, 320, 80);
+    titleImageView.image = [UIImage imageNamed:@"xinkaotitle"];
+    [self.view addSubview:titleImageView];
+    
+    
+    
+    //    UILabel *changeLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 120 + XIA, 47, 35)];
+    //    changeLabel.textColor = [UIColor colorWithRed:0.07f green:0.15f blue:0.32f alpha:1.00f];
+    //    //    changeLabel.textAlignment = 1;
+    //    changeLabel.textColor = [UIColor colorWithRed:0.78f green:0.58f blue:0.00f alpha:1.00f];
+    //    changeLabel.text = @"学校";
+    //    [self.view addSubview:changeLabel];
+    //
+    //    _changeTextField = [[UITextField alloc] init];
+    //    _changeTextField.frame = CGRectMake(30 + 47, 120 + XIA, SIZE.width - 60 - 47, 35);
+    //    _changeTextField.backgroundColor = [UIColor colorWithRed:0.88f green:0.88f blue:0.88f alpha:0.6f];
+    //    _changeTextField.placeholder = @" 请选择学校";
+    //    _changeTextField.layer.cornerRadius = 6;
+    //    _changeTextField.layer.borderWidth = 0.6;
+    //    _changeTextField.layer.borderColor = BAISE.CGColor;
+    //    _changeTextField.layer.masksToBounds = 1;
+    //    [self.view addSubview:_changeTextField];
+    //
+    //    UIButton *changeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    changeButton.frame = _changeTextField.frame;
+    //    changeButton.tag = 99;
+    //    [changeButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    //    [self.view addSubview:changeButton];
+    
+    
+    
+    UILabel *zhanghaoLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 130 + XIA, 47, 35)];
+    zhanghaoLabel.textColor = [UIColor colorWithRed:0.78f green:0.58f blue:0.00f alpha:1.00f];
+    //    zhanghaoLabel.textAlignment = 1;
+    
+    zhanghaoLabel.text = @"账号";
+    [self.view addSubview:zhanghaoLabel];
+    
+    
+    _zhanghaoTextField = [[UITextField alloc] init];
+    _zhanghaoTextField.frame = CGRectMake(30 + 47, 130 + XIA, SIZE.width - 60 - 47, 35);
+    _zhanghaoTextField.backgroundColor = [UIColor colorWithRed:0.88f green:0.88f blue:0.88f alpha:0.6f];
+    _mimaTextField.keyboardType = UIKeyboardTypeASCIICapable;
+    _zhanghaoTextField.placeholder = @" 请输入账号";
+    _zhanghaoTextField.layer.cornerRadius = 6;
+    _zhanghaoTextField.layer.borderWidth = 0.6;
+    _zhanghaoTextField.layer.borderColor = BAISE.CGColor;
+    _zhanghaoTextField.layer.masksToBounds = 1;
+    [self.view addSubview:_zhanghaoTextField];
+    
+    UILabel *mimaLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 180 + XIA, 47, 35)];
+    mimaLabel.textColor = [UIColor colorWithRed:0.78f green:0.58f blue:0.00f alpha:1.00f];
+    //    mimaLabel.textAlignment = 1;
+    mimaLabel.text = @"密码";
+    [self.view addSubview:mimaLabel];
+    
+    _mimaTextField = [[UITextField alloc] init];
+    _mimaTextField.frame = CGRectMake(30 + 47, 180 + XIA, SIZE.width - 60 - 47, 35);
+    _mimaTextField.backgroundColor = [UIColor colorWithRed:0.88f green:0.88f blue:0.88f alpha:0.6f];
+    _mimaTextField.keyboardType = UIKeyboardTypeDefault;
+    _mimaTextField.secureTextEntry = 1;
+    _mimaTextField.placeholder = @" 请输入密码";
+    _mimaTextField.layer.cornerRadius = 6;
+    _mimaTextField.layer.borderWidth = 0.6;
+    _mimaTextField.layer.borderColor = BAISE.CGColor;
+    _mimaTextField.layer.masksToBounds = 1;
+    [self.view addSubview:_mimaTextField];
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(30, 250 + XIA, SIZE.width - 60, 35);
+    //    button.backgroundColor = [UIColor colorWithRed:0.40f green:0.69f blue:0.84f alpha:1.00f];
+    [button setBackgroundImage:[UIImage imageNamed:@"signinButton"] forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"signinButtonh"] forState:UIControlStateHighlighted];
+    [button setTitleColor:[UIColor colorWithRed:0.07f green:0.15f blue:0.32f alpha:1.00f] forState:UIControlStateNormal];
+    [button setTitle:@"登陆" forState:UIControlStateNormal];
+    button.layer.cornerRadius = 6;
+    button.layer.borderWidth = 0.5;
+    button.layer.borderColor = BAISE.CGColor;
+    button.layer.masksToBounds = 1;
+    button.tag = 100;
+    [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button];
+    
+    UIButton *codeButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    codeButton.frame = CGRectMake(30, 300 + XIA, SIZE.width / 2 - 30, 35);//(30, 350, SIZE.width / 2 - 30, 35)
+    //    codeButton.backgroundColor = [UIColor brownColor];
+    [codeButton setTitle:@"扫描二维码登陆" forState:UIControlStateNormal];
+    codeButton.tag = 101;
+    [codeButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:codeButton];
+    
+    UIButton *forgetButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    forgetButton.frame = CGRectMake(SIZE.width / 2, 300 + XIA, SIZE.width / 2 - 30, 35);//(SIZE.width / 2, 350, SIZE.width / 2 - 30, 35)
+    [forgetButton setTitle:@"忘记密码" forState:UIControlStateNormal];
+    forgetButton.tag = 102;
+    [forgetButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:forgetButton];
+    
+    
+    
+    UILabel *endLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, SIZE.height - 50, SIZE.width - 60, 40)];
+    endLabel.font = [UIFont systemFontOfSize:13];
+    endLabel.numberOfLines = 0;
+    endLabel.textAlignment = 1;
+    endLabel.textColor = [UIColor colorWithRed:0.07f green:0.15f blue:0.32f alpha:1.00f];
+    endLabel.textColor = [UIColor colorWithRed:0.78f green:0.58f blue:0.00f alpha:1.00f];
+    endLabel.text = @"河北鑫考教育科技股份有限公司\n地址:河北省衡水市桃城区和平东路137号";
+    [self.view addSubview:endLabel];
+    
+    
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:YES];
 }
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-- (void)createCehuaUI{
-
-    //    self.viewControllers
-    
-    _slideMenu = [[LLSlideMenu alloc] init];
-    [self.view addSubview:_slideMenu];
-    // 设置菜单宽度
-    _slideMenu.ll_menuWidth = SLIDEMENU_WIDTH;
-    // 设置菜单背景色
-    _slideMenu.ll_menuBackgroundColor = [UIColor redColor];
-    // 设置弹力和速度，  默认的是20,15,60
-    _slideMenu.ll_springDamping = 30;       // 阻力
-    _slideMenu.ll_springVelocity = 30;      // 速度
-    _slideMenu.ll_springFramesNum = 60;     // 关键帧数量
-
-    
-    
-    
-    //===================
-    // 添加全屏侧滑手势
-    //===================
-    self.leftSwipe = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftHandle:)];
-    self.leftSwipe.maximumNumberOfTouches = 1;
-    [self.view addGestureRecognizer:_leftSwipe];
-    
-    
-
-    [self createOtherUI];
-}
-
-- (void)createOtherUI{
-    
-//    UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(50, 40, 80, 80)];
-//    [img setImage:[UIImage imageNamed:@"Head"]];
-//    [_slideMenu addSubview:img];
-//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(30, 140, 150, 400)];
-//    label.text = @"这是第一行菜单\n\n这是第二行菜单\n\n这是第三行菜单\n\n这是第四行菜单\n\n这是第五行菜单\n\n这是第六行菜单\n\n这是第七行菜单\n\n这是第八行菜单\n\n这是第九行菜单\n\n这是第十行菜单";
-//    [label setTextColor:[UIColor whiteColor]];
-//    [label setNumberOfLines:0];
-//    [_slideMenu addSubview:label];
-    
-    
-    _headImageView = [[UIImageView alloc] init];
-    _headImageView.frame = CGRectMake( (SLIDEMENU_WIDTH - 100) / 2, 60, 100, 100);
-    _headImageView.layer.masksToBounds = 1;
-    _headImageView.layer.cornerRadius = 50;
-//    _headImageView.layer.borderWidth = 0.6;
-//    _headImageView.layer.borderColor = BAISE.CGColor;
-    
-    _headImageView.image = [UIImage imageNamed:@"xinkaotitle"];
-    [_slideMenu addSubview:_headImageView];
-    
-    _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake( 0, 180, SLIDEMENU_WIDTH, 30)];
-    _nameLabel.textColor = [UIColor colorWithRed:0.07f green:0.15f blue:0.32f alpha:1.00f];
-    _nameLabel.textAlignment = 1;
-    _nameLabel.textColor = [UIColor colorWithRed:0.78f green:0.58f blue:0.00f alpha:1.00f];
-    _nameLabel.text = @"学校";
-    [_slideMenu addSubview:_nameLabel];
-    
-    
-    
-    _slideMenuDataArray = [[NSMutableArray alloc] initWithArray:@[@"设置",
-                                                         @"更新",
-                                                         @"关于",
-                                                         @"注销"
-                                                         ]];
-    
-    
-    _slideMenuTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 220, SLIDEMENU_WIDTH, SIZE.height - 220) style:0];
-    _slideMenuTableView.backgroundColor = [UIColor colorWithRed:0.89f green:0.89f blue:0.89f alpha:1.00f];;;
-    _slideMenuTableView.dataSource = self;
-    _slideMenuTableView.delegate = self;
-    [_slideMenu addSubview:_slideMenuTableView];
-    
-    
-}
-
-
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [_slideMenuDataArray count];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 60;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 0;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 0;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:0 reuseIdentifier:@"cell"];
-    }
-    cell.textLabel.text = _slideMenuDataArray[indexPath.row];
-    
-    //    cell.textLabel.text = _dataArray[indexPath.row][@"stuname"];
-//    [cell changeDataWithDictionary:_dataArray[indexPath.row]];
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
+- (void)buttonClick:(UIButton *)button{
     [self.view endEditing:1];
-    int controllerIndex = -1;
-    if ([[JJExtern sharedJJ].role intValue] > 2) {
-        if (indexPath.row == 0) {
-            //审批
-            controllerIndex = 1;
-        }else if (indexPath.row == 1) {
-            //记录
-            controllerIndex = 0;
-        }else{
-            //无
-            controllerIndex = -1;
-        }
-    }else{
-        if (indexPath.row == 0) {
-            //记录
-            controllerIndex = 0;
-        }else{
-            //无
-            controllerIndex = -1;
-            
-        }
+    
+    NSLog(@"%ld",(long)button.tag);
+    
+    if (button.tag == 99) {
+        
+        
+        [self changeSchool];
+        
+    }else if (button.tag == 100){
+        
+        [self logInWithZhanghao:_zhanghaoTextField.text andMima:_mimaTextField.text andHUDString:@"登录中..."];
+        
+    }else if (button.tag == 101){
+        [self sweepCode];
+        
+        
+        
+    }else if (button.tag == 102){
+        //忘记密码
+        [self forgetPassword];
     }
-    [self pushViewControllerWithControllerIndex:controllerIndex andIndexPath:indexPath];
-}
-
-- (void)pushViewControllerWithControllerIndex:(int)controllerIndex andIndexPath:(NSIndexPath *)indexPath{
-
+    
+    
+    
     
     
 }
-
-
-
-
-//===================
-// 全屏侧滑手势监听
-//===================
-- (void)swipeLeftHandle:(UIScreenEdgePanGestureRecognizer *)recognizer {
-    // 如果菜单已打开则禁止滑动
-    if (_slideMenu.ll_isOpen) {
+//选择学校
+- (void)changeSchool{
+    //    JJChangeSchoolController *controller = [[JJChangeSchoolController alloc] initWithBlock:^(NSDictionary *dataDictionary) {
+    //        //        NSLog(@"%@",dataDictionary);
+    //    }];
+    //    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:controller];
+    //    [self presentViewController:nc animated:1 completion:^{
+    //    }];
+}
+//登陆
+- (void)logInWithZhanghao:(NSString *)zhanghao andMima:(NSString *)mima andHUDString:(NSString *)hudString{
+#if 1
+    
+    JJTabbarController *controller = [[JJTabbarController alloc] init];
+    [self presentViewController:controller animated:0 completion:^{
+    }];
+    
+    return;
+#else
+    
+    
+    //([JJExtern sharedJJ].userid.length && ([JJExtern sharedJJ].userid == NULL) && !([JJExtern sharedJJ].schoolURLString == NULL))
+    if (([JJExtern sharedJJ].schoolURLString == NULL)) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请先选择学校" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            return ;
+        }]];
+        [self presentViewController:alert animated:true completion:nil];
         return;
     }
-    // 计算手指滑的物理距离（滑了多远，与起始位置无关）
-    CGFloat progress = [recognizer translationInView:self.view].x / (self.view.bounds.size.width * 1.0);
-    // 把这个百分比限制在 0~1 之间
-    progress = MIN(1.0, MAX(0.0, progress));
+    [self showHudInView:self.view hint:hudString];
     
-    // 当手势刚刚开始，我们创建一个 UIPercentDrivenInteractiveTransition 对象
-    if (recognizer.state == UIGestureRecognizerStateBegan) {
-        self.percent = [[UIPercentDrivenInteractiveTransition alloc] init];
-    } else if (recognizer.state == UIGestureRecognizerStateChanged) {
+    NSDictionary *request = @{@"action"     :@"login",
+                              @"username"   :zhanghao,
+                              @"pwd"        :mima
+                              };
+    
+    JJDownload *jj = [JJDownload jj];
+    [jj downloadDataWithURLString:[JJExtern sharedJJ].schoolURLString andDictionary:request andSuccessBlock:^(NSDictionary *dataDictionary) {
+        [self hideHud];
         
-        // 当手慢慢划入时，我们把总体手势划入的进度告诉 UIPercentDrivenInteractiveTransition 对象。
-        [self.percent updateInteractiveTransition:progress];
-        _slideMenu.ll_distance = [recognizer translationInView:self.view].x;
-        
-    } else if (recognizer.state == UIGestureRecognizerStateCancelled || recognizer.state == UIGestureRecognizerStateEnded) {
-        // 当手势结束，我们根据用户的手势进度来判断过渡是应该完成还是取消并相应的调用 finishInteractiveTransition 或者 cancelInteractiveTransition 方法.
-        if (progress > 0.4) {
-            [self.percent finishInteractiveTransition];
-            [_slideMenu ll_openSlideMenu];
-        }else{
-            [self.percent cancelInteractiveTransition];
-            [_slideMenu ll_closeSlideMenu];
+        NSLog(@"%@",dataDictionary);
+        if ([dataDictionary[@"resultcode"] intValue] == -1) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"对不起,您没有登录此账号的权限" preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                return ;
+            }]];
+            [self presentViewController:alert animated:true completion:nil];
+        }else if ([dataDictionary[@"resultcode"] intValue] == 0){
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"用户名或密码错误" preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                return ;
+            }]];
+            [self presentViewController:alert animated:true completion:nil];
+        }else if ([dataDictionary[@"resultcode"] intValue] == 1){
+            NSLog(@"%@",dataDictionary);
+            [JJExtern sharedJJ].username = _zhanghaoTextField.text;
+            [JJExtern sharedJJ].userpassword = _mimaTextField.text;
+            [JJExtern sharedJJ].userid = dataDictionary[@"userid"];
+            [JJExtern sharedJJ].role = dataDictionary[@"role"];
+            [JJExtern sharedJJ].name = dataDictionary[@"name"];
+            [JJExtern sharedJJ].nianji = dataDictionary[@"grade"];
+            [JJExtern sharedJJ].banji = dataDictionary[@"classname"];
+            [JJExtern sharedJJ].classid = dataDictionary[@"classid"];
+            //            JJTabbarController *controller = [[JJTabbarController alloc] init];
+            //            [self presentViewController:controller animated:0 completion:^{
+            //            }];
         }
-        self.percent = nil;
-    }
+    } andErrorBlock:^(int CanBeConnected, NSDictionary *dataDictionary) {
+        [self hideHud];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"网络连接失败,请检查网络连接." preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            return ;
+        }]];
+        [self presentViewController:alert animated:true completion:nil];
+    }];
+#endif
+
 }
 
 
 
+
+
+
+- (void)sweepCode{
+    //    JJCodeController *controller = [[JJCodeController alloc] initWithBlock:^(NSDictionary *dataDictionary) {
+    //    }];
+    //    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:controller];
+    //    [self presentViewController:nc animated:1 completion:^{
+    //    }];
+    
+}
+
+
+
+
+
+- (void)forgetPassword{
+    if (([JJExtern sharedJJ].schoolURLString == NULL)) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请先选择学校" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            return ;
+        }]];
+        [self presentViewController:alert animated:true completion:nil];
+        return;
+    }
+    //忘记密码
+    //    FindPasswordViewController *passwordViewController = [[FindPasswordViewController alloc] init];
+    //    UINavigationController *passwordNavigationController = [[UINavigationController alloc] initWithRootViewController:passwordViewController];
+    //    [self presentViewController:passwordNavigationController animated:YES completion:^{
+    //    }];
+}
+
+
+
+
+
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 @end
+
 
 
 

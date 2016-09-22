@@ -8,10 +8,17 @@
 
 #import "AAARootController.h"
 
+
+#define CELLWIDTH 80
+
+
+#define CELLCOUNT 4
+#define CELLBORDERSIZE 20
+
 @interface AAARootController ()
 <
-UITableViewDelegate,
-UITableViewDataSource
+UICollectionViewDataSource,
+UICollectionViewDelegateFlowLayout
 >
 
 {
@@ -19,7 +26,8 @@ UITableViewDataSource
     
     NSMutableArray *_dataArray;
     UITableView *_tableView;
-    
+    UICollectionView *_collectionView;
+
     
     
 }
@@ -45,10 +53,7 @@ UITableViewDataSource
 //    self.title = @"主界面";
     
     
-    UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu"] style:UIBarButtonItemStyleDone target:self action:@selector(leftBarButtonItemClick:)];
 //    self.navigationItem.leftBarButtonItem = leftBarButtonItem;
-    
-    
     
     
     // Do any additional setup after loading the view.
@@ -58,35 +63,49 @@ UITableViewDataSource
     
 }
 
-- (void)leftBarButtonItemClick:(UIBarButtonItem *)barButtonItem{
-    
-    
-//    if ([JJExtern sharedJJ].LeftSlideVC.closed){
-//        [[JJExtern sharedJJ].LeftSlideVC openLeftView];
-//    }else{
-//        [[JJExtern sharedJJ].LeftSlideVC closeLeftView];
-//    }
-}
-
 
 //   http://images.missyuan.com/attachments/day_110518/20110518_11f578129597b680746e022z3P11111a.jpg
 - (void)createData{
+
+    _dataArray = [[NSMutableArray alloc] initWithArray:
+                  @[@{@"headertitle":@"报修",
+                      @"item":@[@{@"title":@"新增报修",@"imagename":@"16"},
+                                @{@"title":@"报修查询",@"imagename":@"27"},
+                                @{@"title":@"报修查询",@"imagename":@"27"},
+                                @{@"title":@"报修查询",@"imagename":@"27"},
+                                ]},
+                    @{@"headertitle":@"订单",
+                      @"item":@[@{@"title":@"新增订单",@"imagename":@"35"},
+                                @{@"title":@"未完成订单",@"imagename":@"45"},
+                                @{@"title":@"已完成订单",@"imagename":@"43"},
+                                @{@"title":@"报修查询",@"imagename":@"27"},
+
+                                ],
+                      },
+                    @{@"headertitle":@"报修",
+                      @"item":@[@{@"title":@"新增报修",@"imagename":@"ttt"},
+                                @{@"title":@"新增报修",@"imagename":@"ttt"},
+                                @{@"title":@"新增报修",@"imagename":@"ttt"},
+                                @{@"title":@"新增报修",@"imagename":@"ttt"},
+                                @{@"title":@"新增报修",@"imagename":@"ttt"},
+                                @{@"title":@"新增报修",@"imagename":@"ttt"},
+                                ],
+                      },
+                    @{@"headertitle":@"报修",
+                      @"item":@[@{@"title":@"新增报修",@"imagename":@"ttt"},
+                                @{@"title":@"新增报修",@"imagename":@"ttt"},
+                                @{@"title":@"新增报修",@"imagename":@"ttt"},
+                                @{@"title":@"新增报修",@"imagename":@"ttt"},
+                                @{@"title":@"新增报修",@"imagename":@"ttt"},
+                                @{@"title":@"新增报修",@"imagename":@"ttt"},
+                                @{@"title":@"新增报修",@"imagename":@"ttt"},
+                                @{@"title":@"新增报修",@"imagename":@"ttt"},
+                                ],
+                      },
+                    ]
+                  ];
     
-    //    "stuid": 6,
-    //    "stuname":"李四",
-    //    "stupic": "http://346.jpg"
     
-    _dataArray = [[NSMutableArray alloc] init];
-    if ([[JJExtern sharedJJ].role intValue] > 2) {
-        [_dataArray addObject:@{@"title":@"审批",
-                                @"imagename":@"shenpi",
-                                @"roleid":@"2",
-                                @"isLeave":@"1"}];
-    }
-    [_dataArray addObject:@{@"title":@"记录",
-                            @"imagename":@"jilu",
-                            @"roleid":@"1",
-                            @"isLeave":@"1"}];
 
 }
 
@@ -94,81 +113,127 @@ UITableViewDataSource
 
 
 - (void)createUI{
+    // Do any additional setup after loading the view.
+    
+    //1,创建布局
+    //网格视图需要一个布局来支撑自己,所以创建一个布局
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    //设置滑动方向(默认就是垂直方向)
+    //1是横向,023都是纵向
+    layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    //创建网格视图 (必须有一个flowlayout对象)
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64, SIZE.width, SIZE.height - 64 - 49) collectionViewLayout:layout];
+    _collectionView.backgroundColor = [UIColor colorWithRed:0.96f green:0.95f blue:0.95f alpha:1.00f];
+    _collectionView.delegate = self;
+    _collectionView.dataSource = self;
+    [self.view addSubview:_collectionView];
+    
+    [_collectionView registerClass:[AAAHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"jjheaderview"];
+//    [_collectionView registerClass:[AAACoCell class] forCellWithReuseIdentifier:@"AAACoCell"];
+    
+    //注册cell
+    [_collectionView registerNib:[UINib nibWithNibName:@"AAACoCell" bundle:nil] forCellWithReuseIdentifier:@"AAACoCell"];
+    
+    //注册段头
+//    [_collectionView registerClass:[MyView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"www"];
+}
 
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, SIZE.width, SIZE.height - 64 - 49) style:0];
-    _tableView.backgroundColor = [UIColor colorWithRed:0.89f green:0.89f blue:0.89f alpha:1.00f];;;
-    _tableView.dataSource = self;
-    _tableView.delegate = self;
-    [self.view addSubview:_tableView];
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    //设置分段数量
+//    return 4;
+    return _dataArray.count;
+    
+}
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    //每段展示多少个cell
+    NSLog(@"%ld",[_dataArray[section][@"item"] count]);
+    return [_dataArray[section][@"item"] count];
+}
 
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    //单个cell的大小
+    //如果改成刚刚好的宽度,但是还是显示少一个,因为默认横排两个cell之间的最低宽度为10
+    return CGSizeMake(CELLWIDTH, CELLWIDTH + 20);
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
+    //分别控制四个边缘的边距.
+    //设置上,左,下,右,的边距,属于分段的.
+    return UIEdgeInsetsMake(CELLBORDERSIZE, CELLBORDERSIZE, CELLBORDERSIZE, CELLBORDERSIZE);
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
+    
+    
+    
+    //事实上是列,如果是竖版的,那么按照横列.
+    //纵向,每一排之间的间距.
+    //设置分段内部的cell垂直方向的最小间隔
+    //不影响两个分段之间的距离.
+    return 10;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
+    //事实上是行,如果是竖版的,那么按照竖行.
+    //横排两个cell之间的距离,最小间隔,不能小于,要大于等于这个数.
+    //在有的版本里面,会默认减掉10.也就是写10,但会返回0;在这里不是
+    //或者说,滑动方向之间的间距
+    
+    return 10;
 }
 
 
 
-
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [_dataArray count];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 60;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 0;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 0;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    AAACell *cell = [tableView dequeueReusableCellWithIdentifier:@"AAACell"];
-    if (!cell) {
-        cell = [[NSBundle mainBundle] loadNibNamed:@"AAACell" owner:self options:nil][0];
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
+    //前面数字在横向滚动的时候有效,后面数字纵向滚动时有效.(无效的数值,是被处理成和屏幕相同宽度或者高度的数值)
+    //头标的高度.如果不设置,默认为0,那么返回什么样的头标view都是无效不显示的.
+    
+    if (section == 1) {
+//        return CGSizeMake(0, 0);
     }
-//    cell.textLabel.text = _dataArray[indexPath.row][@"stuname"];
-    [cell changeDataWithDictionary:_dataArray[indexPath.row]];
+    
+    return CGSizeMake(30, 30);
+    
+    
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
+    //设置段头,或者段尾
+    //判断响应这个方法的是段头还是段尾.
+    if (kind == UICollectionElementKindSectionHeader) {
+        NSLog(@"头");
+    } else {
+        NSLog(@"尾");
+    }
+    AAAHeaderView *view = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"jjheaderview" forIndexPath:indexPath];
+    view.label.text = [NSString stringWithFormat:@"第%zd段",indexPath.section];
+    return view;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    //网格视图的cell必须提前注册.
+    AAACoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AAACoCell" forIndexPath:indexPath];
+    
+    cell.titleLabel.text = _dataArray[indexPath.section][@"item"][indexPath.row][@"title"];
+    cell.titleImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",_dataArray[indexPath.section][@"item"][indexPath.row][@"imagename"]]];
+    
+//    cell.lab.text = [NSString stringWithFormat:@"%ld",indexPath.row];
+//    cell.iconview.image = [UIImage imageNamed:[NSString stringWithFormat:@"%zd.jpg",indexPath.row]];
+    
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
-    [self.view endEditing:1];
-    int controllerIndex = -1;
-    if ([[JJExtern sharedJJ].role intValue] > 2) {
-        if (indexPath.row == 0) {
-            //审批
-            controllerIndex = 1;
-        }else if (indexPath.row == 1) {
-            //记录
-            controllerIndex = 0;
-        }else{
-            //无
-            controllerIndex = -1;
-        }
-    }else{
-        if (indexPath.row == 0) {
-            //记录
-            controllerIndex = 0;
-        }else{
-            //无
-            controllerIndex = -1;
 
-        }
-    }
-    [self pushViewControllerWithControllerIndex:controllerIndex andIndexPath:indexPath];
+
+
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    //点击事件;
+    NSLog(@"%zd,%zd",indexPath.section,indexPath.row);
 }
 
-- (void)pushViewControllerWithControllerIndex:(int)controllerIndex andIndexPath:(NSIndexPath *)indexPath{
 
 
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

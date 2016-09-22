@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AAACoCell" id="gTV-IL-0wX" customClass="AAACoCell">
+            <rect key="frame" x="0.0" y="0.0" width="80" height="100"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="80" height="100"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leftbackiamge.png" translatesAutoresizingMaskIntoConstraints="NO" id="uH1-8r-MVL">
+                        <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="8"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="添加" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NGa-GR-6hO">
+                        <rect key="frame" x="0.0" y="80" width="80" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="R2x-QQ-hgb"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstItem="uH1-8r-MVL" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="3UC-fl-Bwo"/>
+                <constraint firstAttribute="trailing" secondItem="NGa-GR-6hO" secondAttribute="trailing" id="95p-1f-KAE"/>
+                <constraint firstAttribute="bottom" secondItem="uH1-8r-MVL" secondAttribute="bottom" constant="20" id="Z0M-YZ-iY4"/>
+                <constraint firstAttribute="trailing" secondItem="uH1-8r-MVL" secondAttribute="trailing" id="gBv-l9-F3c"/>
+                <constraint firstItem="NGa-GR-6hO" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="rlK-Ij-eba"/>
+                <constraint firstAttribute="bottom" secondItem="NGa-GR-6hO" secondAttribute="bottom" id="sFj-1N-Y4o"/>
+                <constraint firstItem="uH1-8r-MVL" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="yBU-l4-Zo0"/>
+            </constraints>
+            <size key="customSize" width="80" height="100"/>
+            <connections>
+                <outlet property="titleImageView" destination="uH1-8r-MVL" id="CL0-bg-USw"/>
+                <outlet property="titleLabel" destination="NGa-GR-6hO" id="aF8-du-pQR"/>
+            </connections>
+            <point key="canvasLocation" x="355" y="348"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="leftbackiamge.png" width="640" height="1096"/>
+    </resources>
+</document>

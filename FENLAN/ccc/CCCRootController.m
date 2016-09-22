@@ -38,23 +38,12 @@ UITableViewDataSource
     [super viewDidLoad];
     self.view.backgroundColor = BAISE;
     self.automaticallyAdjustsScrollViewInsets = 0;
-//    NavigationType
-// Do any additional setup after loading the view.
-    UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu"] style:UIBarButtonItemStyleDone target:self action:@selector(leftBarButtonItemClick:)];
-    self.navigationItem.leftBarButtonItem = leftBarButtonItem;
     
+
     [self createData];
     [self createUI];
 }
 
-
-- (void)leftBarButtonItemClick:(UIBarButtonItem *)barButtonItem{
-//    if ([JJExtern sharedJJ].LeftSlideVC.closed){
-//        [[JJExtern sharedJJ].LeftSlideVC openLeftView];
-//    }else{
-//        [[JJExtern sharedJJ].LeftSlideVC closeLeftView];
-//    }
-}
 
 - (void)createData{
     

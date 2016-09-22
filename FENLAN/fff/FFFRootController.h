@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  FFFRootController.h
 //  鑫考报修
 //
 //  Created by 杨剑 on 16/9/21.
@@ -7,9 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "JJTabbarController.h"
-@interface ViewController : UIViewController
 
+@interface FFFRootController : UIViewController
 
 @end
-
