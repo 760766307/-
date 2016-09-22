@@ -218,6 +218,28 @@ UICollectionViewDelegateFlowLayout
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     //点击事件;
     NSLog(@"%zd,%zd",indexPath.section,indexPath.row);
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            
+        }else if (indexPath.row == 1){
+            
+        }else{
+            
+        }
+    }else if (indexPath.section == 1){
+        if (indexPath.row == 0) {
+            
+        }else if (indexPath.row == 1){
+            
+        }else if (indexPath.row == 2){
+            
+        }else{
+            
+        }
+    }else{
+    
+    }
+    
 }
 
 
