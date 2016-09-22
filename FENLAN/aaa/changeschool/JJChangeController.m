@@ -9,14 +9,27 @@
 #import "JJChangeController.h"
 
 @interface JJChangeController ()
+{
 
+
+}
 @end
 
 @implementation JJChangeController
 
+- (instancetype)initWithBlock:(JJChangeSchoolBlock)block;
+{
+    self = [super init];
+    if (self) {
+        _block = block;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.view.backgroundColor = BAISE;
+    self.automaticallyAdjustsScrollViewInsets = 0;
 }
 
 - (void)didReceiveMemoryWarning {

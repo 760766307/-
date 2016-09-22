@@ -18,7 +18,9 @@
     [super viewDidLoad];
     self.view.backgroundColor = BAISE;
     self.automaticallyAdjustsScrollViewInsets = 0;
-
+    self.title = @"关于";
+    
+    
     _guanyuTextView.text = @"这里是鑫考教育这里是鑫考教育这里是鑫考教育\n这里是鑫考教育\n这里是鑫考教育\n这里是鑫考教育这里是鑫考教育\n这里是鑫考教育这里是鑫考教育这里是鑫考教育\n这里是鑫考教育这里是鑫考教育这里是鑫考教育这里是鑫考教育\n这里是鑫考教育";
 
 }

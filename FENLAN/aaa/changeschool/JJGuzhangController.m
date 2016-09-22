@@ -1,25 +1,30 @@
 //
-//  JJDingdan1Controller.m
+//  JJGuzhangController.m
 //  鑫考报修
 //
 //  Created by 杨剑 on 16/9/22.
 //  Copyright © 2016年 贱贱. All rights reserved.
 //
 
-#import "JJDingdan1Controller.h"
+#import "JJGuzhangController.h"
 
-@interface JJDingdan1Controller ()
+@interface JJGuzhangController ()
 
 @end
 
-@implementation JJDingdan1Controller
+@implementation JJGuzhangController
+- (instancetype)initWithBlock:(JJGuzhangBlock)block;
+{
+    self = [super init];
+    if (self) {
+        _block = block;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = BAISE;
-    self.automaticallyAdjustsScrollViewInsets = 0;
-    self.title = @"新增订单";
-
+    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {

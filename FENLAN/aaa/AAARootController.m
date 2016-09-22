@@ -75,16 +75,18 @@ UICollectionViewDelegateFlowLayout
                                 @{@"title":@"已完成订单",@"imagename":@"43"},
                                 ],
                       },
-//                    @{@"headertitle":@"报修",
-//                      @"item":@[@{@"title":@"新增报修",@"imagename":@"ttt"},
-//                                @{@"title":@"新增报修",@"imagename":@"ttt"},
-//                                @{@"title":@"新增报修",@"imagename":@"ttt"},
-//                                @{@"title":@"新增报修",@"imagename":@"ttt"},
-//                                @{@"title":@"新增报修",@"imagename":@"ttt"},
-//                                @{@"title":@"新增报修",@"imagename":@"ttt"},
-//                                ],
-//                      },
-//                    @{@"headertitle":@"报修",
+                    @{@"headertitle":@"订单",
+                      @"item":@[@{@"title":@"新增订单",@"imagename":@"35"},
+                                @{@"title":@"未完成订单",@"imagename":@"45"},
+                                @{@"title":@"已完成订单",@"imagename":@"43"},
+                                @{@"title":@"已完成订单",@"imagename":@"43"},
+                                @{@"title":@"已完成订单",@"imagename":@"43"},
+                                @{@"title":@"已完成订单",@"imagename":@"43"},
+                                @{@"title":@"已完成订单",@"imagename":@"43"},
+                                @{@"title":@"已完成订单",@"imagename":@"43"},
+                                ],
+                      },
+                    //                    @{@"headertitle":@"报修",
 //                      @"item":@[@{@"title":@"新增报修",@"imagename":@"ttt"},
 //                                @{@"title":@"新增报修",@"imagename":@"ttt"},
 //                                @{@"title":@"新增报修",@"imagename":@"ttt"},
@@ -97,8 +99,6 @@ UICollectionViewDelegateFlowLayout
 //                      },
                     ]
                   ];
-    
-    
 
 }
 
@@ -203,7 +203,7 @@ UICollectionViewDelegateFlowLayout
     AAACoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AAACoCell" forIndexPath:indexPath];
     
     cell.titleLabel.text = _dataArray[indexPath.section][@"item"][indexPath.row][@"title"];
-    cell.titleImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",_dataArray[indexPath.section][@"item"][indexPath.row][@"imagename"]]];
+    cell.titleImageView.image = [UIImage imageNamed:_dataArray[indexPath.section][@"item"][indexPath.row][@"imagename"]];
     
 //    cell.lab.text = [NSString stringWithFormat:@"%ld",indexPath.row];
 //    cell.iconview.image = [UIImage imageNamed:[NSString stringWithFormat:@"%zd.jpg",indexPath.row]];
@@ -218,28 +218,46 @@ UICollectionViewDelegateFlowLayout
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     //点击事件;
     NSLog(@"%zd,%zd",indexPath.section,indexPath.row);
+    
+    UIViewController *controller = [[UIViewController alloc] init];
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            
+            controller = [[JJBaoxiu1Controller alloc] init];
         }else if (indexPath.row == 1){
-            
+            controller = [[JJBaoxiu2Controller alloc] init];
         }else{
-            
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"出现了一个小小的未知错误" preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                return ;
+            }]];
+            [self presentViewController:alert animated:true completion:nil];
+            return;
         }
     }else if (indexPath.section == 1){
         if (indexPath.row == 0) {
-            
+            controller = [[JJDingdan1Controller alloc] init];
         }else if (indexPath.row == 1){
-            
+            controller = [[JJDingdan2Controller alloc] init];
         }else if (indexPath.row == 2){
-            
+            controller = [[JJDingdan3Controller alloc] init];
         }else{
-            
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"出现了一个小小的未知错误" preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                return ;
+            }]];
+            [self presentViewController:alert animated:true completion:nil];
+            return;
         }
     }else{
-    
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"出现了一个小小的未知错误" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            return ;
+        }]];
+        [self presentViewController:alert animated:true completion:nil];
+        return;
     }
-    
+    controller.hidesBottomBarWhenPushed = 1;
+    [self.navigationController pushViewController:controller animated:1];
 }
 
 

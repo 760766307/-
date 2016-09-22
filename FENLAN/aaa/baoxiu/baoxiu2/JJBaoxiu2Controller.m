@@ -16,7 +16,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.view.backgroundColor = BAISE;
+    self.automaticallyAdjustsScrollViewInsets = 0;
+    self.title = @"报修查询";
+
 }
 
 - (void)didReceiveMemoryWarning {

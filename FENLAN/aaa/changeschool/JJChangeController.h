@@ -10,4 +10,14 @@
 
 @interface JJChangeController : UIViewController
 
+
+
+typedef void (^JJChangeSchoolBlock)(NSDictionary *changeSchoolDictionary);
+
+@property (nonatomic,strong)JJChangeSchoolBlock block;
+
+
+- (instancetype)initWithBlock:(JJChangeSchoolBlock)block;
+
+
 @end

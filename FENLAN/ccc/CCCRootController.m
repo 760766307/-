@@ -48,20 +48,25 @@ UITableViewDataSource
 - (void)createData{
     
     _dataArray = [[NSMutableArray alloc] initWithArray:@[@{@"title":@"个人信息",
-                                                           @"content":@"张三",
-                                                           @"imageName":@"ooopic_1473230219",
-                                                           @"content2": @"3"
+                                                           @"subtitle":@"",
+                                                           @"imagename":@"1.1",
+                                                           },
+                                                         @{@"title":@"密码",
+                                                           @"subtitle":@"",
+                                                           @"imagename":@"2.1",
+                                                           },
+                                                         @{@"title":@"检查版本",
+                                                           @"subtitle":@"1.2.1",
+                                                           @"imagename":@"3.1",
                                                            },
                                                          @{@"title":@"关于",
-                                                           @"content":@"张三",
-                                                           @"imageName":@"ooopic_1473230288",
-                                                           @"content2": @"3"
+                                                           @"subtitle":@"",
+                                                           @"imagename":@"4.1",
                                                            },
-                                                         @{@"title":@"退出登录",
-                                                           @"content":@"张三",
-                                                           @"imageName":@"ooopic_1473230165",
-                                                           @"content2": @"3"
-                                                           }
+                                                         @{@"title":@"注销",
+                                                           @"subtitle":@"",
+                                                           @"imagename":@"2.2",
+                                                           },
                                                          ]];
 }
 
@@ -75,9 +80,7 @@ UITableViewDataSource
     _tableView.dataSource = self;
     _tableView.delegate = self;
     [self.view addSubview:_tableView];
-    
     //实现方法//取消textView ,textField的第一响应者即可
-    
 }
 
 
@@ -86,11 +89,11 @@ UITableViewDataSource
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+    return _dataArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 264;
+    return 50;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -105,67 +108,56 @@ UITableViewDataSource
     CCCCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CCCCell"];
     if (!cell) {
         cell = [[NSBundle mainBundle] loadNibNamed:@"CCCCell" owner:self options:nil][0];
-        
-        
-        cell.block = ^(long buttonTag,NSDictionary *dic){
-            
-            if (buttonTag == 99) {
-                
-                JJGuanyuController *controller = [[JJGuanyuController alloc] init];
-                controller.hidesBottomBarWhenPushed = 1;
-                controller.title = @"关于";
-                [self.navigationController pushViewController:controller animated:1];
-                
-            }
-            if (buttonTag == 100) {
-                
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确定退出登录" message:@"" preferredStyle:UIAlertControllerStyleAlert];
-                [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    return ;
-                }]];
-                [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    
-                    [JJExtern sharedJJ].userid = @"";
-                    [JJExtern sharedJJ].userpassword = @"";
-                    [self.tabBarController dismissViewControllerAnimated:0 completion:^{
-                    }];
-                    return ;
-                }]];
-                [self presentViewController:alert animated:true completion:nil];
-                
-                
-            }
-            
-            
-        };
-        
-        
-        
     }
-//    [cell changeDataWithDictionary:_dataArray[indexPath.row]];
+    cell.titleLabel.text = _dataArray[indexPath.row][@"title"];
+    cell.titleImageView.image = [UIImage imageNamed:_dataArray[indexPath.row][@"imagename"]];
+    cell.subLabel.text = _dataArray[indexPath.row][@"subtitle"];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
     
+    if (indexPath.row == 0) {
+        
+    }else if (indexPath.row == 1) {
+        
+    }else if (indexPath.row == 2) {
+        [self banbenJiance];
+    }else if (indexPath.row == 3) {
+        JJGuanyuController *controller = [[JJGuanyuController alloc] init];
+        [self.navigationController pushViewController:controller animated:1];
+    }else if (indexPath.row == 4) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"是否退出此账号?" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            return ;
+        }]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self showHint:@"正在注销"];
+            return ;
+        }]];
+        [self presentViewController:alert animated:true completion:nil];
+    }else{
+        return;
+    }
+    
+    
+    
     
 }
+
+//检测版本
+- (void)banbenJiance{
+
+
+
+}
+
 
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
-
-
-
-
-
-
-
-
-
-
 
 
 

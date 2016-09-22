@@ -31,8 +31,8 @@
     
     
     self.tabBar.barTintColor = [UIColor colorWithRed:1.00f green:0.96f blue:0.80f alpha:1.00f];
-    
-    self.tabBar.tintColor = [UIColor colorWithRed:0.35f green:0.68f blue:0.72f alpha:1.00f];
+    self.tabBar.barTintColor = [UIColor colorWithRed:0.77f green:0.92f blue:0.87f alpha:1.00f];
+    self.tabBar.tintColor = [UIColor colorWithRed:0.08f green:0.33f blue:0.20f alpha:1.00f];;
 
     
     
@@ -69,6 +69,19 @@
     _cccNC = [[UINavigationController alloc] initWithRootViewController:_cccController];
     _cccNC.tabBarItem.image = [UIImage imageNamed:@"icon_3_n"];
     _cccNC.tabBarItem.selectedImage = [UIImage imageNamed:@"icon_3_d"];
+    
+    _aaaNC.navigationBar.barTintColor = [UIColor colorWithRed:0.77f green:0.92f blue:0.87f alpha:1.00f];
+    _aaaNC.navigationBar.tintColor = [UIColor colorWithRed:0.08f green:0.33f blue:0.20f alpha:1.00f];
+    [_aaaNC.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:19],NSForegroundColorAttributeName:[UIColor colorWithRed:0.08f green:0.33f blue:0.20f alpha:1.00f]}];
+    
+    _bbbNC.navigationBar.barTintColor = [UIColor colorWithRed:0.77f green:0.92f blue:0.87f alpha:1.00f];
+    _bbbNC.navigationBar.tintColor = [UIColor colorWithRed:0.08f green:0.33f blue:0.20f alpha:1.00f];
+    [_bbbNC.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:19],NSForegroundColorAttributeName:[UIColor colorWithRed:0.08f green:0.33f blue:0.20f alpha:1.00f]}];
+    
+    _cccNC.navigationBar.barTintColor = [UIColor colorWithRed:0.77f green:0.92f blue:0.87f alpha:1.00f];
+    _cccNC.navigationBar.tintColor = [UIColor colorWithRed:0.08f green:0.33f blue:0.20f alpha:1.00f];
+    [_cccNC.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:19],NSForegroundColorAttributeName:[UIColor colorWithRed:0.08f green:0.33f blue:0.20f alpha:1.00f]}];
+    
     self.viewControllers = @[_aaaNC,_bbbNC,_cccNC];
     //    self.viewControllers = @[aaaController,bbbController,cccController];
 }

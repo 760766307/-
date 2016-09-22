@@ -16,7 +16,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.view.backgroundColor = BAISE;
+    self.automaticallyAdjustsScrollViewInsets = 0;
+    self.title = @"已完成订单";
+
 }
 
 - (void)didReceiveMemoryWarning {
