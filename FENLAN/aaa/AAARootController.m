@@ -49,12 +49,9 @@ UICollectionViewDelegateFlowLayout
     self.automaticallyAdjustsScrollViewInsets = 0;
 //    NavigationType
     
-    
 //    self.title = @"主界面";
     
-    
 //    self.navigationItem.leftBarButtonItem = leftBarButtonItem;
-    
     
     // Do any additional setup after loading the view.
     
@@ -71,37 +68,33 @@ UICollectionViewDelegateFlowLayout
                   @[@{@"headertitle":@"报修",
                       @"item":@[@{@"title":@"新增报修",@"imagename":@"16"},
                                 @{@"title":@"报修查询",@"imagename":@"27"},
-                                @{@"title":@"报修查询",@"imagename":@"27"},
-                                @{@"title":@"报修查询",@"imagename":@"27"},
                                 ]},
                     @{@"headertitle":@"订单",
                       @"item":@[@{@"title":@"新增订单",@"imagename":@"35"},
                                 @{@"title":@"未完成订单",@"imagename":@"45"},
                                 @{@"title":@"已完成订单",@"imagename":@"43"},
-                                @{@"title":@"报修查询",@"imagename":@"27"},
-
                                 ],
                       },
-                    @{@"headertitle":@"报修",
-                      @"item":@[@{@"title":@"新增报修",@"imagename":@"ttt"},
-                                @{@"title":@"新增报修",@"imagename":@"ttt"},
-                                @{@"title":@"新增报修",@"imagename":@"ttt"},
-                                @{@"title":@"新增报修",@"imagename":@"ttt"},
-                                @{@"title":@"新增报修",@"imagename":@"ttt"},
-                                @{@"title":@"新增报修",@"imagename":@"ttt"},
-                                ],
-                      },
-                    @{@"headertitle":@"报修",
-                      @"item":@[@{@"title":@"新增报修",@"imagename":@"ttt"},
-                                @{@"title":@"新增报修",@"imagename":@"ttt"},
-                                @{@"title":@"新增报修",@"imagename":@"ttt"},
-                                @{@"title":@"新增报修",@"imagename":@"ttt"},
-                                @{@"title":@"新增报修",@"imagename":@"ttt"},
-                                @{@"title":@"新增报修",@"imagename":@"ttt"},
-                                @{@"title":@"新增报修",@"imagename":@"ttt"},
-                                @{@"title":@"新增报修",@"imagename":@"ttt"},
-                                ],
-                      },
+//                    @{@"headertitle":@"报修",
+//                      @"item":@[@{@"title":@"新增报修",@"imagename":@"ttt"},
+//                                @{@"title":@"新增报修",@"imagename":@"ttt"},
+//                                @{@"title":@"新增报修",@"imagename":@"ttt"},
+//                                @{@"title":@"新增报修",@"imagename":@"ttt"},
+//                                @{@"title":@"新增报修",@"imagename":@"ttt"},
+//                                @{@"title":@"新增报修",@"imagename":@"ttt"},
+//                                ],
+//                      },
+//                    @{@"headertitle":@"报修",
+//                      @"item":@[@{@"title":@"新增报修",@"imagename":@"ttt"},
+//                                @{@"title":@"新增报修",@"imagename":@"ttt"},
+//                                @{@"title":@"新增报修",@"imagename":@"ttt"},
+//                                @{@"title":@"新增报修",@"imagename":@"ttt"},
+//                                @{@"title":@"新增报修",@"imagename":@"ttt"},
+//                                @{@"title":@"新增报修",@"imagename":@"ttt"},
+//                                @{@"title":@"新增报修",@"imagename":@"ttt"},
+//                                @{@"title":@"新增报修",@"imagename":@"ttt"},
+//                                ],
+//                      },
                     ]
                   ];
     
@@ -187,12 +180,7 @@ UICollectionViewDelegateFlowLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
     //前面数字在横向滚动的时候有效,后面数字纵向滚动时有效.(无效的数值,是被处理成和屏幕相同宽度或者高度的数值)
     //头标的高度.如果不设置,默认为0,那么返回什么样的头标view都是无效不显示的.
-    
-    if (section == 1) {
-//        return CGSizeMake(0, 0);
-    }
-    
-    return CGSizeMake(30, 30);
+    return CGSizeMake(0, 0);
     
     
 }
