@@ -13,6 +13,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.backgroundColor = BAISE;
+    self.titleLabel.textColor = [UIColor colorWithRed:0.08f green:0.33f blue:0.20f alpha:1.00f];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

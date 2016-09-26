@@ -32,9 +32,15 @@
         // 这里可以获取到目前的数据请求的进度
     } success:^(NSURLSessionDataTask * _Nonnull task, id _Nullable responseObject) {
         // 请求成功，解析数据
-//        NSLog(@"%@", responseObject);
+        NSLog(@"%@", responseObject);
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers | NSJSONReadingMutableLeaves error:nil];
-//        NSLog(@"%@", dic);
+        
+        id x = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers | NSJSONReadingMutableLeaves error:nil];
+        
+        
+        
+        NSLog(@"%@",x);
+        
         successBlock(dic);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         // 请求失败

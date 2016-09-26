@@ -147,7 +147,28 @@ UITableViewDataSource
     [self.view endEditing:1];
     [self showHudInView:self.view hint:@"Loading"];
     
-    
+    NSDictionary *request = @{@"action"     :@"Uploadbx",
+                              @"bxr"        :_model.baoxiuRen,
+                              @"kh"         :_model.kehu,
+                              @"bxtel"      :_model.baoxiuDianhua,
+                              @"glx"        :_model.guzhangLeixing,
+                              @"zzq"        :_model.qiXian,
+                              @"nr"         :_model.baoxiuNeirong,
+                              };
+    JJDownload *jj = [JJDownload jj];
+    [jj downloadDataWithURLString:[JJExtern sharedJJ].urlString andDictionary:request andSuccessBlock:^(NSDictionary *dataDictionary) {
+        NSLog(@"%@",dataDictionary);
+        [self hideHud];
+        [self showHint:@"上传报修成功"];
+        [self.navigationController popViewControllerAnimated:1];
+    } andErrorBlock:^(int CanBeConnected, NSDictionary *dataDictionary) {
+        [self hideHud];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"网络连接失败,请检查网络连接." preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            return ;
+        }]];
+        [self presentViewController:alert animated:true completion:nil];
+    }];
     
 }
 
@@ -181,34 +202,53 @@ UITableViewDataSource
     if (!cell) {
         cell = [[NSBundle mainBundle] loadNibNamed:_cellnameArray[indexPath.section][indexPath.row][@"cellname"] owner:self options:nil][0];
         cell.block = ^(NSDictionary *cellDictionary){
+            [self.view endEditing:1];
             if (cell.cellTag == 1) {
                 JJChangeController *changeSchoolController = [[JJChangeController alloc] initWithBlock:^(NSDictionary *changeSchoolDictionary) {
                     
+                    _model.kehu = changeSchoolDictionary[@"kname"];
+                    _model.kehuid = changeSchoolDictionary[@"Kid"];
+                    _model.kehutel = changeSchoolDictionary[@"ktel"];
+                    
+                    [_tableView reloadData];
                 }];
                 [self.navigationController pushViewController:changeSchoolController animated:1];
             }else if (cell.cellTag == 2) {
                 JJGuzhangController *guzhangController = [[JJGuzhangController alloc] initWithBlock:^(NSDictionary *guzhangDictionary) {
                     
+                    _model.guzhangCode = guzhangDictionary[@"Code"];
+                    _model.guzhangHasChild = guzhangDictionary[@"HasChild"];
+                    _model.guzhangID = guzhangDictionary[@"ID"];
+                    _model.guzhangName = guzhangDictionary[@"Name"];
+                    _model.guzhangPID = guzhangDictionary[@"PID"];
+                    _model.guzhangjbn = guzhangDictionary[@"jbn"];
+                    _model.guzhanglev = guzhangDictionary[@"lev"];
+                    _model.guzhangparent = guzhangDictionary[@"parent"];
+                    
+                    [_tableView reloadData];
+                    
                 }];
                 [self.navigationController pushViewController:guzhangController animated:1];
             }else if (cell.cellTag == 3) {
-                
+                _model.baoxiuRen = cellDictionary[@"text"];
             }else if (cell.cellTag == 4) {
-                
+                _model.baoxiuDianhua = cellDictionary[@"text"];
+                [_tableView reloadData];
             }else if (cell.cellTag == 5) {
-                
+                _datePickerView = [[JJDatePickerView alloc] initWithViewController:self andJJDatePickerBlock:^(NSDictionary *dictionary) {
+                    _model.qiXian = dictionary[@"title"];
+                    [_tableView reloadData];
+                }];
+                [_datePickerView addTarget:self action:@selector(datePickerViewBackgroundClick:) forControlEvents:UIControlEventTouchUpInside];
+                [_datePickerView begin];
             }else if (cell.cellTag == 6) {
-                
+                _model.baoxiuNeirong = cellDictionary[@"text"];
+                [_tableView reloadData];
             }else{
                 return ;
             }
         };
     }
-
-    
-    
-    
-    
     
     [cell changeDataWithModel:_model];
     return cell;
@@ -216,35 +256,14 @@ UITableViewDataSource
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if ([self.view endEditing:1]) {
-        return;
-    }
-    [self showHint:@"没有弹出的键盘"];
+    [self.view endEditing:1];
+    
+    
+    
 }
 
 - (void)datePickerViewBackgroundClick:(JJDatePickerView *)datePickerView{
     [datePickerView end];
-}
-
-- (void)showDatePickerViewWithIsBegin:(BOOL)isBegin andDataDictionary:(NSDictionary *)dataDictionary{
-    if (isBegin) {
-        _datePickerView = [[JJDatePickerView alloc] initWithViewController:self andJJDatePickerBlock:^(NSDictionary *dictionary) {
-//            _qingjiaData.kaishiShijian = dictionary[@"title"];
-            [_tableView reloadData];
-        }];
-        [_datePickerView addTarget:self action:@selector(datePickerViewBackgroundClick:) forControlEvents:UIControlEventTouchUpInside];
-        [_datePickerView begin];
-    }else{
-        _datePickerView = [[JJDatePickerView alloc] initWithViewController:self andJJDatePickerBlock:^(NSDictionary *dictionary) {
-//            _qingjiaData.jieshuShijian = dictionary[@"title"];
-            [_tableView reloadData];
-        }];
-        [_datePickerView addTarget:self action:@selector(datePickerViewBackgroundClick:) forControlEvents:UIControlEventTouchUpInside];
-        [_datePickerView begin];
-    }
-    
-    
-    
 }
 
 

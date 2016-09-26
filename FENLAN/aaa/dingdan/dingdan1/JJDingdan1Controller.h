@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "JJDingdan1Cell.h"
+
 @interface JJDingdan1Controller : UIViewController
 
 @end

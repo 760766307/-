@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+#import "JJBaoxiu2Cell1.h"
+#import "JJBaoxiu2Cell2.h"
+#import "JJBaoxiu2Cell3.h"
+
+#import "JJBaoxiu2Model.h"
+
+
+#import "JJChaxunJieguoController.h"
+
 @interface JJBaoxiu2Controller : UIViewController
 
 @end

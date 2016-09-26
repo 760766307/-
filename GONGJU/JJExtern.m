@@ -26,59 +26,25 @@ static JJExtern *jj = nil;
         if(self = [super init])
         {
             //______________________________
-            //在这里写下想给的初始值.h ttp://10.10.50.246:93/port.aspx?action=login&username=15297671359&pwd=123456
-//            request = @{@"action"     :@"login",
-//                        //                @"username"   :@"13722812531",15297671359
-//                        //                @"username"   :@"15932426654",
-            //                        @"username"   :@"15203285277",
-//                        @"pwd"        :@"123456"};
-//            [self cehuaViewController];
+            //在这里写下想给的初始值.
             
             _userid = [[NSUserDefaults standardUserDefaults] objectForKey:@"userid"];
             _username = [[NSUserDefaults standardUserDefaults] objectForKey:@"username"];
             _userpassword = [[NSUserDefaults standardUserDefaults] objectForKey:@"userpassword"];
-            
-//            _username = @"13722812531";//教师
-//            _username = @"15932426654";//年级主任
-//            _username = @"15203285277";//学校管理员
-//            _userpassword = @"123456";
-            
-            
-            _serverURLString = @"http://121.17.126.21/CrxAPP/SchInfo.aspx?";
-//            _schoolURLString = @"http://10.10.50.246:93/port.aspx?";
+            _urlString = @"http://10.10.50.249:85/jky.aspx?";
 //            url = "http://10.10.50.246:93/";
             
-            _schoolid = [[NSUserDefaults standardUserDefaults] objectForKey:@"schoolid"];
-            _schoolname = [[NSUserDefaults standardUserDefaults] objectForKey:@"schoolname"];
-            _schoolURLString = [[NSUserDefaults standardUserDefaults] objectForKey:@"schoolURLString"];
-            
-            NSLog(@"%@",_schoolURLString);
+//            NSLog(@"%@",[UIDevice currentDevice].identifierForVendor.UUIDString);
+            _uuidString = [UIDevice currentDevice].identifierForVendor.UUIDString;
+            NSLog(@"%@",_uuidString);
+
+//            _uuidString = @"120c83f7602218e2122";//19位
             //______________________________
             return self;
         }
         return nil;
     }
 }
-//
-//- (void)cehuaViewController{
-////    JJCehuaController *mainVC = [[JJCehuaController alloc] init];
-////    _mainNavigationController = [[UINavigationController alloc] initWithRootViewController:mainVC];
-//    
-//    
-//    _tabbarController = [[JJTabbarController alloc] init];
-//    UIViewController *controller = [[UIViewController alloc] init];
-//    controller.view = _tabbarController.view;
-//    
-//    
-//    LeftSortsViewController *leftVC = [[LeftSortsViewController alloc] init];
-////    _LeftSlideVC = [[LeftSlideViewController alloc] initWithLeftView:leftVC andMainView:_mainNavigationController];
-//    _LeftSlideVC = [[LeftSlideViewController alloc] initWithLeftView:leftVC andMainView:controller];
-//}
-
-
-
-
-
 
 
 
@@ -133,25 +99,7 @@ static JJExtern *jj = nil;
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (void)setSchoolid:(NSString *)schoolid{
-    _schoolid = schoolid;
-    [[NSUserDefaults standardUserDefaults] setObject:_schoolid forKey:@"schoolid"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
 
-- (void)setSchoolname:(NSString *)schoolname{
-    _schoolname = schoolname;
-    [[NSUserDefaults standardUserDefaults] setObject:_schoolname forKey:@"schoolname"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-- (void)setSchoolURLString:(NSString *)schoolURLString{
-    _schoolURLString = schoolURLString;
-    //            _schoolURLString = @"h ttp://10.10.50.246:93/port.aspx?";
-    _schoolURLString = [NSString stringWithFormat:@"%@port.aspx?",schoolURLString];
-    [[NSUserDefaults standardUserDefaults] setObject:_schoolURLString forKey:@"schoolURLString"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-
-}
 
 
 

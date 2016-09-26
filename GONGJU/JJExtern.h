@@ -30,20 +30,7 @@
 
 @property (nonatomic,strong)NSString *differentString;
 
-
-@property (nonatomic,copy)NSString *serverURLString;//服务器的url
-
-
-
-
-//@property (strong, nonatomic) LeftSlideViewController *LeftSlideVC;
-//@property (strong, nonatomic) UINavigationController *mainNavigationController;
 @property (strong, nonatomic) JJTabbarController *tabbarController;
-
-
-@property (nonatomic,copy)NSString *schoolid;//学校的id
-@property (nonatomic,copy)NSString *schoolname;//学校的姓名
-@property (nonatomic,copy)NSString *schoolURLString;//学校的url
 
 @property (nonatomic,copy)NSString *username;//账号
 @property (nonatomic,copy)NSString *userpassword;//密码
@@ -51,9 +38,8 @@
 @property (nonatomic,copy)NSString *userid;//唯一标识
 @property (nonatomic,copy)NSString *role;//角色
 @property (nonatomic,copy)NSString *name;//姓名
-@property (nonatomic,copy)NSString *nianji;//年级
-@property (nonatomic,copy)NSString *banji;//班级
-@property (nonatomic,copy)NSString *classid;//班级id
+@property (nonatomic,copy)NSString *urlString;
+@property (nonatomic,copy)NSString *uuidString;
 
 
 + (JJExtern *)sharedJJ;

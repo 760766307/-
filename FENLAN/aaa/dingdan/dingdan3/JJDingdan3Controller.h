@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+
+#import "JJDingdan3Cell.h"
+
 @interface JJDingdan3Controller : UIViewController
 
 @end

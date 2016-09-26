@@ -12,6 +12,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.backgroundColor = BAISE;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     _cellTag = 0;
 }

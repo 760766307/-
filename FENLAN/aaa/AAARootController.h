@@ -19,8 +19,6 @@
 
 @interface AAARootController : UIViewController
 
-
-
 typedef void (^JJAAABlock)(NSDictionary *dataDictionary);
 
 

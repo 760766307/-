@@ -36,8 +36,6 @@
 - (instancetype)initWithViewController:(UIViewController *)viewController andJJDatePickerBlock:(JJDatePickerBlock)block
 {
     
-//    JJDatePickerView *view = [[JJDatePickerView alloc] initWithViewController:viewController];
-//
     JJDatePickerView *view = [self initWithViewController:viewController];
 //    self = [super init];
 //    if (self) {

@@ -18,7 +18,7 @@ UITableViewDataSource
     NSMutableArray *_dataArray;
     UITableView *_tableView;
     
-    NSDictionary *_stuDictionary;
+//    NSDictionary *_stuDictionary;
     
 }
 @end
@@ -133,7 +133,11 @@ UITableViewDataSource
             return ;
         }]];
         [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [self showHint:@"正在注销"];
+            [JJExtern sharedJJ].userid = @"";
+            [JJExtern sharedJJ].userpassword = @"";
+            [self.tabBarController dismissViewControllerAnimated:0 completion:^{
+            }];
+            return ;
             return ;
         }]];
         [self presentViewController:alert animated:true completion:nil];

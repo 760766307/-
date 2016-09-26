@@ -10,8 +10,23 @@
 
 @interface JJBaoxiu1Model : NSObject
 
+//客户信息
 @property (nonatomic,copy)NSString *kehu;
+@property (nonatomic,copy)NSString *kehuid;
+@property (nonatomic,copy)NSString *kehutel;
+
+//故障类型
+@property (nonatomic,copy)NSString *guzhanglev;
+@property (nonatomic,copy)NSString *guzhangPID;
+@property (nonatomic,copy)NSString *guzhangID;
+@property (nonatomic,copy)NSString *guzhangCode;
+@property (nonatomic,copy)NSString *guzhangjbn;
+@property (nonatomic,copy)NSString *guzhangName;
+@property (nonatomic,copy)NSString *guzhangHasChild;
+@property (nonatomic,copy)NSString *guzhangparent;
 @property (nonatomic,copy)NSString *guzhangLeixing;
+
+
 @property (nonatomic,copy)NSString *baoxiuRen;
 @property (nonatomic,copy)NSString *baoxiuDianhua;
 @property (nonatomic,copy)NSString *qiXian;

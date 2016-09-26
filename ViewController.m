@@ -39,12 +39,11 @@
 - (void)viewDidAppear:(BOOL)animated{
     if ([JJExtern sharedJJ].        userid.length
         && !([JJExtern sharedJJ].   userid          == NULL)
-        && !([JJExtern sharedJJ].   schoolURLString == NULL)
         && [JJExtern sharedJJ].     username.length
         && !([JJExtern sharedJJ].   username        == NULL)
         && [JJExtern sharedJJ].     userpassword.length
         && !([JJExtern sharedJJ].   userpassword    == NULL)) {
-        NSLog(@"%@",[JJExtern sharedJJ].schoolURLString);
+        NSLog(@"%@",[JJExtern sharedJJ].urlString);
         NSLog(@"%@",[JJExtern sharedJJ].userid);
         [self logInWithZhanghao:[JJExtern sharedJJ].username andMima:[JJExtern sharedJJ].userpassword andHUDString:@"自动登录..."];
     }
@@ -125,7 +124,6 @@
     
     UILabel *mimaLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 180 + XIA, 47, 35)];
     mimaLabel.textColor = [UIColor colorWithRed:0.78f green:0.58f blue:0.00f alpha:1.00f];
-    //    mimaLabel.textAlignment = 1;
     mimaLabel.text = @"密码";
     [self.view addSubview:mimaLabel];
     
@@ -146,6 +144,9 @@
     //    button.backgroundColor = [UIColor colorWithRed:0.40f green:0.69f blue:0.84f alpha:1.00f];
     [button setBackgroundImage:[UIImage imageNamed:@"signinButton"] forState:UIControlStateNormal];
     [button setBackgroundImage:[UIImage imageNamed:@"signinButtonh"] forState:UIControlStateHighlighted];
+    
+    [button setBackgroundImage:[UIImage imageNamed:@"buttonlalala"] forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"buttonhigh"] forState:UIControlStateHighlighted];
     [button setTitleColor:[UIColor colorWithRed:0.07f green:0.15f blue:0.32f alpha:1.00f] forState:UIControlStateNormal];
     [button setTitle:@"登陆" forState:UIControlStateNormal];
     button.layer.cornerRadius = 6;
@@ -199,9 +200,6 @@
     
     if (button.tag == 99) {
         
-        
-        [self changeSchool];
-        
     }else if (button.tag == 100){
         
         [self logInWithZhanghao:_zhanghaoTextField.text andMima:_mimaTextField.text andHUDString:@"登录中..."];
@@ -221,73 +219,48 @@
     
     
 }
-//选择学校
-- (void)changeSchool{
-    //    JJChangeSchoolController *controller = [[JJChangeSchoolController alloc] initWithBlock:^(NSDictionary *dataDictionary) {
-    //        //        NSLog(@"%@",dataDictionary);
-    //    }];
-    //    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:controller];
-    //    [self presentViewController:nc animated:1 completion:^{
-    //    }];
-}
+
 //登陆
 - (void)logInWithZhanghao:(NSString *)zhanghao andMima:(NSString *)mima andHUDString:(NSString *)hudString{
-#if 1
+#if 0
     
     JJTabbarController *controller = [[JJTabbarController alloc] init];
     [self presentViewController:controller animated:0 completion:^{
     }];
-    
     return;
 #else
+//    UIDevice *device = [UIDevice currentDevice];//创建设备对象
     
+//    device  advertisingIdentifier
     
-    //([JJExtern sharedJJ].userid.length && ([JJExtern sharedJJ].userid == NULL) && !([JJExtern sharedJJ].schoolURLString == NULL))
-    if (([JJExtern sharedJJ].schoolURLString == NULL)) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请先选择学校" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            return ;
-        }]];
-        [self presentViewController:alert animated:true completion:nil];
-        return;
-    }
-    [self showHudInView:self.view hint:hudString];
-    
+//    NSString *deviceUID = [[NSString alloc] initWithString:[device advertisingIdentifier]];
+
     NSDictionary *request = @{@"action"     :@"login",
-                              @"username"   :zhanghao,
-                              @"pwd"        :mima
+                              @"Utel"       :zhanghao,
+                              @"Upass"      :mima,
+                              @"RegID"      :[JJExtern sharedJJ].uuidString,//
                               };
-    
+    [self showHudInView:self.view hint:hudString];
     JJDownload *jj = [JJDownload jj];
-    [jj downloadDataWithURLString:[JJExtern sharedJJ].schoolURLString andDictionary:request andSuccessBlock:^(NSDictionary *dataDictionary) {
+    [jj downloadDataWithURLString:[JJExtern sharedJJ].urlString andDictionary:request andSuccessBlock:^(NSDictionary *dataDictionary) {
         [self hideHud];
-        
         NSLog(@"%@",dataDictionary);
-        if ([dataDictionary[@"resultcode"] intValue] == -1) {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"对不起,您没有登录此账号的权限" preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                return ;
-            }]];
-            [self presentViewController:alert animated:true completion:nil];
-        }else if ([dataDictionary[@"resultcode"] intValue] == 0){
+        if ([dataDictionary[@"resultcode"] intValue] == 1){
+            NSLog(@"%@",dataDictionary);
+            [JJExtern sharedJJ].username = _zhanghaoTextField.text;
+            [JJExtern sharedJJ].userpassword = _mimaTextField.text;
+            [JJExtern sharedJJ].userid = dataDictionary[@"Uid"];
+            [JJExtern sharedJJ].role = dataDictionary[@"Urole"];
+            [JJExtern sharedJJ].name = dataDictionary[@"Uname"];
+            JJTabbarController *controller = [[JJTabbarController alloc] init];
+            [self presentViewController:controller animated:0 completion:^{
+            }];
+        }else{
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"用户名或密码错误" preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 return ;
             }]];
             [self presentViewController:alert animated:true completion:nil];
-        }else if ([dataDictionary[@"resultcode"] intValue] == 1){
-            NSLog(@"%@",dataDictionary);
-            [JJExtern sharedJJ].username = _zhanghaoTextField.text;
-            [JJExtern sharedJJ].userpassword = _mimaTextField.text;
-            [JJExtern sharedJJ].userid = dataDictionary[@"userid"];
-            [JJExtern sharedJJ].role = dataDictionary[@"role"];
-            [JJExtern sharedJJ].name = dataDictionary[@"name"];
-            [JJExtern sharedJJ].nianji = dataDictionary[@"grade"];
-            [JJExtern sharedJJ].banji = dataDictionary[@"classname"];
-            [JJExtern sharedJJ].classid = dataDictionary[@"classid"];
-            //            JJTabbarController *controller = [[JJTabbarController alloc] init];
-            //            [self presentViewController:controller animated:0 completion:^{
-            //            }];
         }
     } andErrorBlock:^(int CanBeConnected, NSDictionary *dataDictionary) {
         [self hideHud];
@@ -307,11 +280,8 @@
 
 
 - (void)sweepCode{
-    //    JJCodeController *controller = [[JJCodeController alloc] initWithBlock:^(NSDictionary *dataDictionary) {
-    //    }];
-    //    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:controller];
-    //    [self presentViewController:nc animated:1 completion:^{
-    //    }];
+    
+    
     
 }
 
@@ -320,7 +290,7 @@
 
 
 - (void)forgetPassword{
-    if (([JJExtern sharedJJ].schoolURLString == NULL)) {
+    if (([JJExtern sharedJJ].urlString == NULL)) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请先选择学校" preferredStyle:UIAlertControllerStyleAlert];
         [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             return ;

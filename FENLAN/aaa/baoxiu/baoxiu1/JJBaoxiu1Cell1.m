@@ -28,10 +28,14 @@
     }
 }
 
-- (void)changeDataWithDictionary:(NSDictionary *)dictionary{}
+- (void)changeDataWithDictionary:(NSDictionary *)dictionary{
+    
+}
 
 
-- (void)changeDataWithModel:(JJBaoxiu1Model *)model{}
+- (void)changeDataWithModel:(JJBaoxiu1Model *)model{
+    _contentTextField.text = model.kehu;
+}
 
 
 
