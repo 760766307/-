@@ -64,14 +64,14 @@ UITableViewDataSource
 - (void)downloadXindingdanDataWithDictionary:(NSDictionary *)dictionary{
     [self showHudInView:self.view hint:@"Loading"];
     
-    NSDictionary *request = @{@"action"     :@"xddc",
-                              @"gcs"       :@"",
+    NSDictionary *request = @{@"action"     :@"ydx",
+                              @"gcs"       :[JJExtern sharedJJ].name,
                               };
     JJDownload *jj = [JJDownload jj];
     [jj downloadDataWithURLString:[JJExtern sharedJJ].urlString andDictionary:request andSuccessBlock:^(NSDictionary *dataDictionary) {
         [self hideHud];
         NSLog(@"%@",dataDictionary);
-        _dataArray = [[NSMutableArray alloc] initWithArray:dataDictionary[@"khmessage"]];
+        _dataArray = [[NSMutableArray alloc] initWithArray:dataDictionary[@"Xdc"]];
         [_tableView reloadData];
     } andErrorBlock:^(int CanBeConnected, NSDictionary *dataDictionary) {
         [self hideHud];
@@ -94,7 +94,11 @@ UITableViewDataSource
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 50;
+    CGFloat labelHeight = [[JJExtern sharedJJ] boundingRectWithSize:CGSizeMake(SIZE.width - 89, 1000) text:_dataArray[indexPath.row][@"nr"] font:BOUNDINGFONT].height;
+    if (labelHeight > 21) {
+        return 133 + labelHeight;
+    }
+    return 154;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -106,21 +110,22 @@ UITableViewDataSource
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    CCCCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CCCCell"];
+    JJDingdan2Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"JJDingdan2Cell"];
     if (!cell) {
-        cell = [[NSBundle mainBundle] loadNibNamed:@"CCCCell" owner:self options:nil][0];
+        cell = [[NSBundle mainBundle] loadNibNamed:@"JJDingdan2Cell" owner:self options:nil][0];
     }
-    cell.titleLabel.text = _dataArray[indexPath.row][@"title"];
-    cell.titleImageView.image = [UIImage imageNamed:_dataArray[indexPath.row][@"imagename"]];
-    cell.subLabel.text = _dataArray[indexPath.row][@"subtitle"];
+//    cell.titleLabel.text = _dataArray[indexPath.row][@"title"];
+//    cell.titleImageView.image = [UIImage imageNamed:_dataArray[indexPath.row][@"imagename"]];
+//    cell.subLabel.text = _dataArray[indexPath.row][@"subtitle"];
+    [cell changeDataWithDictionary:_dataArray[indexPath.row]];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
     
-    
 }
+
 
 
 - (void)didReceiveMemoryWarning {

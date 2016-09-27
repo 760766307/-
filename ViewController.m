@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #define XIA 30
 
-@interface ViewController ()
+@interface ViewController ()<JPUSHRegisterDelegate>
 {
     //    UITextField *_changeTextField;
     UITextField *_zhanghaoTextField;
@@ -45,7 +45,8 @@
         && !([JJExtern sharedJJ].   userpassword    == NULL)) {
         NSLog(@"%@",[JJExtern sharedJJ].urlString);
         NSLog(@"%@",[JJExtern sharedJJ].userid);
-        [self logInWithZhanghao:[JJExtern sharedJJ].username andMima:[JJExtern sharedJJ].userpassword andHUDString:@"自动登录..."];
+        
+            [self logInWithZhanghao:[JJExtern sharedJJ].username andMima:[JJExtern sharedJJ].userpassword andHUDString:@"自动登录..."];
     }
 }
 
@@ -230,46 +231,87 @@
     return;
 #else
 //    UIDevice *device = [UIDevice currentDevice];//创建设备对象
-    
 //    device  advertisingIdentifier
-    
 //    NSString *deviceUID = [[NSString alloc] initWithString:[device advertisingIdentifier]];
-
-    NSDictionary *request = @{@"action"     :@"login",
-                              @"Utel"       :zhanghao,
-                              @"Upass"      :mima,
-                              @"RegID"      :[JJExtern sharedJJ].uuidString,//
-                              };
     [self showHudInView:self.view hint:hudString];
-    JJDownload *jj = [JJDownload jj];
-    [jj downloadDataWithURLString:[JJExtern sharedJJ].urlString andDictionary:request andSuccessBlock:^(NSDictionary *dataDictionary) {
-        [self hideHud];
-        NSLog(@"%@",dataDictionary);
-        if ([dataDictionary[@"resultcode"] intValue] == 1){
+    if ([JJExtern sharedJJ].zhuceTuisong) {
+        NSDictionary *request = @{@"action"     :@"login",
+                                  @"Utel"       :zhanghao,
+                                  @"Upass"      :mima,
+                                  @"RegID"      :[JJExtern sharedJJ].registrationID,//
+                                  };
+        JJDownload *jj = [JJDownload jj];
+        [jj downloadDataWithURLString:[JJExtern sharedJJ].urlString andDictionary:request andSuccessBlock:^(NSDictionary *dataDictionary) {
+            [self hideHud];
             NSLog(@"%@",dataDictionary);
-            [JJExtern sharedJJ].username = _zhanghaoTextField.text;
-            [JJExtern sharedJJ].userpassword = _mimaTextField.text;
-            [JJExtern sharedJJ].userid = dataDictionary[@"Uid"];
-            [JJExtern sharedJJ].role = dataDictionary[@"Urole"];
-            [JJExtern sharedJJ].name = dataDictionary[@"Uname"];
-            JJTabbarController *controller = [[JJTabbarController alloc] init];
-            [self presentViewController:controller animated:0 completion:^{
-            }];
-        }else{
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"用户名或密码错误" preferredStyle:UIAlertControllerStyleAlert];
+            if ([dataDictionary[@"resultcode"] intValue] == 1){
+                NSLog(@"%@",dataDictionary);
+                [JJExtern sharedJJ].username = _zhanghaoTextField.text;
+                [JJExtern sharedJJ].userpassword = _mimaTextField.text;
+                [JJExtern sharedJJ].userid = dataDictionary[@"Uid"];
+                [JJExtern sharedJJ].role = dataDictionary[@"Urole"];
+                [JJExtern sharedJJ].name = dataDictionary[@"Uname"];
+                JJTabbarController *controller = [[JJTabbarController alloc] init];
+                [self presentViewController:controller animated:0 completion:^{
+                }];
+            }else{
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"用户名或密码错误" preferredStyle:UIAlertControllerStyleAlert];
+                [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    return ;
+                }]];
+                [self presentViewController:alert animated:true completion:nil];
+            }
+        } andErrorBlock:^(int CanBeConnected, NSDictionary *dataDictionary) {
+            [self hideHud];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"网络连接失败,请检查网络连接." preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 return ;
             }]];
             [self presentViewController:alert animated:true completion:nil];
-        }
-    } andErrorBlock:^(int CanBeConnected, NSDictionary *dataDictionary) {
-        [self hideHud];
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"网络连接失败,请检查网络连接." preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            return ;
-        }]];
-        [self presentViewController:alert animated:true completion:nil];
-    }];
+        }];
+
+    }else{
+        [JJExtern sharedJJ].signBlock = ^(int zhuceChenggong){
+            
+            NSDictionary *request = @{@"action"     :@"login",
+                                      @"Utel"       :zhanghao,
+                                      @"Upass"      :mima,
+                                      @"RegID"      :[JJExtern sharedJJ].registrationID,//
+                                      };
+            [self showHudInView:self.view hint:hudString];
+            JJDownload *jj = [JJDownload jj];
+            [jj downloadDataWithURLString:[JJExtern sharedJJ].urlString andDictionary:request andSuccessBlock:^(NSDictionary *dataDictionary) {
+                [self hideHud];
+                NSLog(@"%@",dataDictionary);
+                if ([dataDictionary[@"resultcode"] intValue] == 1){
+                    NSLog(@"%@",dataDictionary);
+                    [JJExtern sharedJJ].username = _zhanghaoTextField.text;
+                    [JJExtern sharedJJ].userpassword = _mimaTextField.text;
+                    [JJExtern sharedJJ].userid = dataDictionary[@"Uid"];
+                    [JJExtern sharedJJ].role = dataDictionary[@"Urole"];
+                    [JJExtern sharedJJ].name = dataDictionary[@"Uname"];
+                    JJTabbarController *controller = [[JJTabbarController alloc] init];
+                    [self presentViewController:controller animated:0 completion:^{
+                    }];
+                }else{
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"用户名或密码错误" preferredStyle:UIAlertControllerStyleAlert];
+                    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        return ;
+                    }]];
+                    [self presentViewController:alert animated:true completion:nil];
+                }
+            } andErrorBlock:^(int CanBeConnected, NSDictionary *dataDictionary) {
+                [self hideHud];
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"网络连接失败,请检查网络连接." preferredStyle:UIAlertControllerStyleAlert];
+                [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    return ;
+                }]];
+                [self presentViewController:alert animated:true completion:nil];
+            }];
+            [JJExtern sharedJJ].signBlock = nil;
+        };
+        
+    }
 #endif
 
 }

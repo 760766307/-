@@ -8,6 +8,24 @@
 
 #import <UIKit/UIKit.h>
 
+# define BOUNDINGFONT [UIFont systemFontOfSize:15]
+
 @interface JJDingdan2Cell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *typeLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *content1Label;
+
+@property (weak, nonatomic) IBOutlet UILabel *content2Label;
+@property (weak, nonatomic) IBOutlet UILabel *content3Label;
+
+- (void)changeDataWithDictionary:(NSDictionary *)dictionary;
+
+
+
+
 @end
+
+

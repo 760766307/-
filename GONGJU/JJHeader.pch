@@ -18,6 +18,7 @@
 
 #import "UIViewController+HUD.h"
 
+#import "JPUSHService.h"
 
 #import "JJDownload.h"
 

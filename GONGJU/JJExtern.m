@@ -34,11 +34,10 @@ static JJExtern *jj = nil;
             _urlString = @"http://10.10.50.249:85/jky.aspx?";
 //            url = "http://10.10.50.246:93/";
             
-//            NSLog(@"%@",[UIDevice currentDevice].identifierForVendor.UUIDString);
-            _uuidString = [UIDevice currentDevice].identifierForVendor.UUIDString;
-            NSLog(@"%@",_uuidString);
-
-//            _uuidString = @"120c83f7602218e2122";//19位
+            _registrationID = @"";
+            
+            _zhuceTuisong = 0;
+            
             //______________________________
             return self;
         }
@@ -77,7 +76,6 @@ static JJExtern *jj = nil;
     NSString *differentString = [NSString stringWithFormat:@"%ld%d%d",(long)([senddate timeIntervalSince1970] * 100),a,b];
     NSLog(@"%@",differentString);
     return differentString;
-    
 }
 
 
@@ -99,7 +97,21 @@ static JJExtern *jj = nil;
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-
+- (void)setRegistrationID:(NSString *)registrationID{
+    
+    if (registrationID == NULL) {
+        registrationID = @"";
+    }
+    _registrationID = registrationID;
+    _zhuceTuisong = 1;
+    if (_signBlock) {
+        if (_registrationID.length) {
+            _signBlock(1);
+        }else{
+            _signBlock(0);
+        }
+    }
+}
 
 
 

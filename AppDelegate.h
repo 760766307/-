@@ -9,11 +9,10 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
-#import "JPUSHService.h"
 
 
-static NSString *appKey = @"c524a6241d1409f3f539225d";
-static NSString *channel = @"97514a9151871cf3977a8065";
+static NSString *appKey = @"121f855efecce69a98b553c7";
+static NSString *channel = @"a5f5106ea75c2f91e30715a8";
 static BOOL isProduction = FALSE;
 
 

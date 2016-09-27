@@ -62,13 +62,13 @@ UITableViewDataSource
     [self showHudInView:self.view hint:@"Loading"];
     
     NSDictionary *request = @{@"action"     :@"xddc",
-                              @"gcs"       :@"",
+                              @"gcs"       :[JJExtern sharedJJ].name,
                               };
     JJDownload *jj = [JJDownload jj];
     [jj downloadDataWithURLString:[JJExtern sharedJJ].urlString andDictionary:request andSuccessBlock:^(NSDictionary *dataDictionary) {
         [self hideHud];
         NSLog(@"%@",dataDictionary);
-        _dataArray = [[NSMutableArray alloc] initWithArray:dataDictionary[@"khmessage"]];
+        _dataArray = [[NSMutableArray alloc] initWithArray:dataDictionary[@"Xdc"]];
         [_tableView reloadData];
     } andErrorBlock:^(int CanBeConnected, NSDictionary *dataDictionary) {
         [self hideHud];
@@ -78,8 +78,6 @@ UITableViewDataSource
         }]];
         [self presentViewController:alert animated:true completion:nil];
     }];
-
-
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -91,7 +89,11 @@ UITableViewDataSource
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 50;
+    CGFloat labelHeight = [[JJExtern sharedJJ] boundingRectWithSize:CGSizeMake(SIZE.width - 89, 1000) text:_dataArray[indexPath.row][@"nr"] font:BOUNDINGFONT].height;
+    if (labelHeight > 21) {
+        return 133 + labelHeight;
+    }
+    return 154;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -103,13 +105,14 @@ UITableViewDataSource
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    CCCCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CCCCell"];
+    JJDingdan1Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"JJDingdan1Cell"];
     if (!cell) {
-        cell = [[NSBundle mainBundle] loadNibNamed:@"CCCCell" owner:self options:nil][0];
+        cell = [[NSBundle mainBundle] loadNibNamed:@"JJDingdan1Cell" owner:self options:nil][0];
     }
-    cell.titleLabel.text = _dataArray[indexPath.row][@"title"];
-    cell.titleImageView.image = [UIImage imageNamed:_dataArray[indexPath.row][@"imagename"]];
-    cell.subLabel.text = _dataArray[indexPath.row][@"subtitle"];
+    //    cell.titleLabel.text = _dataArray[indexPath.row][@"title"];
+    //    cell.titleImageView.image = [UIImage imageNamed:_dataArray[indexPath.row][@"imagename"]];
+    //    cell.subLabel.text = _dataArray[indexPath.row][@"subtitle"];
+    [cell changeDataWithDictionary:_dataArray[indexPath.row]];
     return cell;
 }
 
@@ -117,7 +120,43 @@ UITableViewDataSource
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
     
     
+    
+    NSString *alertTitle = [NSString stringWithFormat:@"接单:%@",_dataArray[indexPath.row][@"glx"]];
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:alertTitle message:@"" preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        return ;
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self downloadJiedanWithDictionary:_dataArray[indexPath.row]];
+        return ;
+    }]];
+    [self presentViewController:alert animated:true completion:nil];
 }
+
+- (void)downloadJiedanWithDictionary:(NSDictionary *)dictionary{
+    [self showHudInView:self.view hint:@"Loading"];
+    NSDictionary *request = @{@"action"     :@"xdjs",
+                              @"id"       :dictionary[@"id"],
+                              };
+    JJDownload *jj = [JJDownload jj];
+    [jj downloadDataWithURLString:[JJExtern sharedJJ].urlString andDictionary:request andSuccessBlock:^(NSDictionary *dataDictionary) {
+        [self hideHud];
+        [self showHint:@"接单成功"];
+        [self downloadXindingdanDataWithDictionary:nil];
+    } andErrorBlock:^(int CanBeConnected, NSDictionary *dataDictionary) {
+        [self hideHud];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"网络连接失败,请检查网络连接." preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            return ;
+        }]];
+        [self presentViewController:alert animated:true completion:nil];
+    }];
+}
+
+
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

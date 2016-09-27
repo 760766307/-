@@ -27,6 +27,11 @@
 
 @interface JJExtern : NSObject
 
+typedef void (^JJExternSignBlock)(int tuisongChenggong);
+
+
+@property (nonatomic,strong)JJExternSignBlock signBlock;
+
 
 @property (nonatomic,strong)NSString *differentString;
 
@@ -39,12 +44,12 @@
 @property (nonatomic,copy)NSString *role;//角色
 @property (nonatomic,copy)NSString *name;//姓名
 @property (nonatomic,copy)NSString *urlString;
-@property (nonatomic,copy)NSString *uuidString;
+@property (nonatomic,copy)NSString *registrationID;
 
+@property (nonatomic)int zhuceTuisong;
 
 + (JJExtern *)sharedJJ;
 - (CGSize)boundingRectWithSize:(CGSize)size text:(NSString *)text font:(UIFont *)font;
-
 
 @end
 
