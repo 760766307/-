@@ -34,6 +34,8 @@ UICollectionViewDelegateFlowLayout
 @end
 
 @implementation AAARootController
+
+
 - (instancetype)initWithBlock:(JJAAABlock)block
 {
     self = [super init];
@@ -66,20 +68,23 @@ UICollectionViewDelegateFlowLayout
 
     _dataArray = [[NSMutableArray alloc] initWithArray:
                   @[@{@"headertitle":@"报修",
-                      @"item":@[@{@"title":@"新增报修",@"imagename":@"16"},
-                                @{@"title":@"报修查询",@"imagename":@"27"},
+                      @"item":@[@{@"title":@"新增报修",@"imagename":@"xinzengbaoxiu"},
+                                @{@"title":@"报修查询",@"imagename":@"baoxiuchaxun"},
+                                @{@"title":@"新订单查询",@"imagename":@"xindingdanchaxun"},
+                                @{@"title":@"未完成订单",@"imagename":@"weiwanchengdingdan"},
+                                @{@"title":@"已完成订单",@"imagename":@"yiwanchengdingdan"},
                                 ]},
                     @{@"headertitle":@"订单",
-                      @"item":@[@{@"title":@"新订单查询",@"imagename":@"35"},
-                                @{@"title":@"未完成订单",@"imagename":@"45"},
-                                @{@"title":@"已完成订单",@"imagename":@"43"},
+                      @"item":@[
+//                                @{@"title":@"新订单查询",@"imagename":@"35"},
+//                                @{@"title":@"未完成订单",@"imagename":@"45"},
+//                                @{@"title":@"已完成订单",@"imagename":@"43"},
                                 ],
                       },
                     ]
                   ];
 
 }
-
 
 
 
@@ -117,7 +122,7 @@ UICollectionViewDelegateFlowLayout
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     //每段展示多少个cell
-    NSLog(@"%ld",[_dataArray[section][@"item"] count]);
+//    NSLog(@"%lu",[_dataArray[section][@"item"] count]);
     return [_dataArray[section][@"item"] count];
 }
 
@@ -181,10 +186,8 @@ UICollectionViewDelegateFlowLayout
     AAACoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AAACoCell" forIndexPath:indexPath];
     
     cell.titleLabel.text = _dataArray[indexPath.section][@"item"][indexPath.row][@"title"];
-    cell.titleImageView.image = [UIImage imageNamed:_dataArray[indexPath.section][@"item"][indexPath.row][@"imagename"]];
-    
-//    cell.lab.text = [NSString stringWithFormat:@"%ld",indexPath.row];
-//    cell.iconview.image = [UIImage imageNamed:[NSString stringWithFormat:@"%zd.jpg",indexPath.row]];
+//    cell.titleImageView.image = [UIImage imageNamed:_dataArray[indexPath.section][@"item"][indexPath.row][@"imagename"]];
+    cell.titleImageView.image = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@",[[NSBundle mainBundle] pathForResource:_dataArray[indexPath.section][@"item"][indexPath.row][@"imagename"] ofType:@"png"]]];
     
     return cell;
 }
@@ -203,6 +206,15 @@ UICollectionViewDelegateFlowLayout
             controller = [[JJBaoxiu1Controller alloc] init];
         }else if (indexPath.row == 1){
             controller = [[JJBaoxiu2Controller alloc] init];
+        }else if (indexPath.row == 2){
+            controller = [[JJDingdan1Controller alloc] init];
+
+        }else if (indexPath.row == 3){
+            controller = [[JJDingdan2Controller alloc] init];
+
+        }else if (indexPath.row == 4){
+            controller = [[JJDingdan3Controller alloc] init];
+
         }else{
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"出现了一个小小的未知错误" preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -212,20 +224,20 @@ UICollectionViewDelegateFlowLayout
             return;
         }
     }else if (indexPath.section == 1){
-        if (indexPath.row == 0) {
-            controller = [[JJDingdan1Controller alloc] init];
-        }else if (indexPath.row == 1){
-            controller = [[JJDingdan2Controller alloc] init];
-        }else if (indexPath.row == 2){
-            controller = [[JJDingdan3Controller alloc] init];
-        }else{
+//        if (indexPath.row == 0) {
+//            controller = [[JJDingdan1Controller alloc] init];
+//        }else if (indexPath.row == 1){
+//            controller = [[JJDingdan2Controller alloc] init];
+//        }else if (indexPath.row == 2){
+//            controller = [[JJDingdan3Controller alloc] init];
+//        }else{
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"出现了一个小小的未知错误" preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 return ;
             }]];
             [self presentViewController:alert animated:true completion:nil];
             return;
-        }
+//        }
     }else{
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"出现了一个小小的未知错误" preferredStyle:UIAlertControllerStyleAlert];
         [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {

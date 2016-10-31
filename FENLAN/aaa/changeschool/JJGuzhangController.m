@@ -81,7 +81,7 @@ UITableViewDataSource
             [button setImage:[UIImage imageNamed:@"sectionguan"] forState:UIControlStateNormal];
             [button setImage:[UIImage imageNamed:@"sectionkai"] forState:UIControlStateSelected];
             [button setTitleColor:[UIColor colorWithRed:0.18f green:0.34f blue:0.43f alpha:1.00f] forState:UIControlStateNormal];
-            [button setTitle:[NSString stringWithFormat:@"%@ - %@ (%ld项)",_dataArray[i][@"Jbn"],_dataArray[i][@"Name"],[_dataArray[i][@"EJbx"] count]] forState:UIControlStateNormal];
+            [button setTitle:[NSString stringWithFormat:@"%@ - %@ (%d项)",_dataArray[i][@"Jbn"],_dataArray[i][@"Name"],(int)[_dataArray[i][@"EJbx"] count]] forState:UIControlStateNormal];
             button.tag = i + 100;
             [button addTarget:self action:@selector(spreadButtonClick:) forControlEvents:UIControlEventTouchUpInside];
             button.selected = 0;
@@ -154,7 +154,12 @@ UITableViewDataSource
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
     
-    _block(_dataArray[indexPath.section][@"EJbx"][indexPath.row]);
+//    [button setTitle:[NSString stringWithFormat:@"%@ - %@ (%ld项)",_dataArray[i][@"Jbn"],_dataArray[i][@"Name"],[_dataArray[i][@"EJbx"] count]] forState:UIControlStateNormal];
+
+    
+    NSMutableDictionary *mdic = [[NSMutableDictionary alloc] initWithDictionary:_dataArray[indexPath.section][@"EJbx"][indexPath.row]];
+    [mdic setObject:_dataArray[indexPath.section][@"Name"] forKey:@"guzhangSection"];
+    _block(mdic);
     [self.navigationController popViewControllerAnimated:1];
     
     

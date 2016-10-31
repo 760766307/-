@@ -34,12 +34,16 @@
 
 
 - (void)changeDataWithModel:(JJBaoxiu1Model *)model{
-    _contentTextField.text = model.guzhangLeixing;
+    _contentTextField.text = [NSString stringWithFormat:@"%@,%@",model.guzhangSection,model.guzhangName];
+    if (_contentTextField.text.length < 2) {
+        _contentTextField.text = @"";
+    }
 }
 
 
 
 @end
+
 
 
 

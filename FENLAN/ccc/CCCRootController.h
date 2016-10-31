@@ -11,6 +11,7 @@
 
 #import "JJGerenxinxiController.h"
 #import "JJGuanyuController.h"
+#import "JJXiugaiMimaController.h"
 
 
 

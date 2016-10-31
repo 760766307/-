@@ -31,6 +31,9 @@ UITableViewDataSource
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = BAISE;
+    
+    self.title = @"已完成订单";
+
     self.automaticallyAdjustsScrollViewInsets = 0;
     
     
@@ -65,7 +68,7 @@ UITableViewDataSource
     [self showHudInView:self.view hint:@"Loading"];
     
     NSDictionary *request = @{@"action"     :@"ywcd",
-                              @"gcs"       :[JJExtern sharedJJ].name,
+                              @"gcs"        :[JJExtern sharedJJ].name,
                               };
     JJDownload *jj = [JJDownload jj];
     [jj downloadDataWithURLString:[JJExtern sharedJJ].urlString andDictionary:request andSuccessBlock:^(NSDictionary *dataDictionary) {
@@ -73,6 +76,9 @@ UITableViewDataSource
         NSLog(@"%@",dataDictionary);
         _dataArray = [[NSMutableArray alloc] initWithArray:dataDictionary[@"Xdc"]];
         [_tableView reloadData];
+        if (![dataDictionary[@"Xdc"] count]) {
+            [self showHint:@"暂无数据"];
+        }
     } andErrorBlock:^(int CanBeConnected, NSDictionary *dataDictionary) {
         [self hideHud];
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"网络连接失败,请检查网络连接." preferredStyle:UIAlertControllerStyleAlert];

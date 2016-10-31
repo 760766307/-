@@ -18,6 +18,15 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.backgroundColor = BAISE;
+
+    _typeLabel.layer.cornerRadius = 5;
+    _typeLabel.layer.borderWidth = 0.6;
+    _typeLabel.layer.borderColor = [UIColor colorWithRed:0.18f green:0.80f blue:0.00f alpha:1.00f].CGColor;
+    _typeLabel.layer.masksToBounds = 1;
+    _typeLabel.textColor = [UIColor colorWithRed:0.18f green:0.80f blue:0.00f alpha:1.00f];
+    _typeLabel.text = @"已完成";
+
     
     _content4Label = [[UILabel alloc] initWithFrame:CGRectMake(81, 124, SIZE.width - 89, 21)];
     _content4Label.textColor = [UIColor colorWithRed:0.78f green:0.58f blue:0.00f alpha:1.00f];
@@ -40,7 +49,7 @@
     }
     
     
-    _typeLabel.hidden = 1;
+//    _typeLabel.hidden = 1;
     _titleLabel.text = dictionary[@"kh"];
     _content1Label.text = dictionary[@"bxtel"];
     _content2Label.text = dictionary[@"zzq"];

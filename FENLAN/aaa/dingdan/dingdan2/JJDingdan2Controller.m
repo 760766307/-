@@ -33,13 +33,19 @@ UITableViewDataSource
     self.view.backgroundColor = BAISE;
     self.automaticallyAdjustsScrollViewInsets = 0;
     
-    
+    self.title = @"未完成订单";
+
     [self createData];
     [self createUI];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *path = [paths objectAtIndex:0];
+    [[NSFileManager defaultManager] removeItemAtPath:[NSString stringWithFormat:@"%@/tijiaodingdan", path] error:nil];
+    
     [self downloadXindingdanDataWithDictionary:nil];
 }
 
@@ -73,6 +79,9 @@ UITableViewDataSource
         NSLog(@"%@",dataDictionary);
         _dataArray = [[NSMutableArray alloc] initWithArray:dataDictionary[@"Xdc"]];
         [_tableView reloadData];
+        if (![dataDictionary[@"Xdc"] count]) {
+            [self showHint:@"暂无数据"];
+        }
     } andErrorBlock:^(int CanBeConnected, NSDictionary *dataDictionary) {
         [self hideHud];
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"网络连接失败,请检查网络连接." preferredStyle:UIAlertControllerStyleAlert];
@@ -123,6 +132,8 @@ UITableViewDataSource
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
+    JJWanchengController *controller = [[JJWanchengController alloc] initWithDingdanDictionary:_dataArray[indexPath.row]];
+    [self.navigationController pushViewController:controller animated:1];
     
 }
 

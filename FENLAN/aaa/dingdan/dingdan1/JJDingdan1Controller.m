@@ -30,7 +30,8 @@ UITableViewDataSource
     self.view.backgroundColor = BAISE;
     self.automaticallyAdjustsScrollViewInsets = 0;
     
-    
+    self.title = @"新订单查询";
+
     [self createData];
     [self createUI];
 }
@@ -70,6 +71,9 @@ UITableViewDataSource
         NSLog(@"%@",dataDictionary);
         _dataArray = [[NSMutableArray alloc] initWithArray:dataDictionary[@"Xdc"]];
         [_tableView reloadData];
+        if (![dataDictionary[@"Xdc"] count]) {
+            [self showHint:@"暂无数据"];
+        }
     } andErrorBlock:^(int CanBeConnected, NSDictionary *dataDictionary) {
         [self hideHud];
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"网络连接失败,请检查网络连接." preferredStyle:UIAlertControllerStyleAlert];
@@ -141,6 +145,7 @@ UITableViewDataSource
                               };
     JJDownload *jj = [JJDownload jj];
     [jj downloadDataWithURLString:[JJExtern sharedJJ].urlString andDictionary:request andSuccessBlock:^(NSDictionary *dataDictionary) {
+        
         [self hideHud];
         [self showHint:@"接单成功"];
         [self downloadXindingdanDataWithDictionary:nil];

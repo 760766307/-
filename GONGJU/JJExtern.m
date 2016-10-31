@@ -32,10 +32,11 @@ static JJExtern *jj = nil;
             _username = [[NSUserDefaults standardUserDefaults] objectForKey:@"username"];
             _userpassword = [[NSUserDefaults standardUserDefaults] objectForKey:@"userpassword"];
             _urlString = @"http://10.10.50.249:85/jky.aspx?";
+            _urlString = @"http://121.17.126.21:9013/jky.aspx?";
+            
 //            url = "http://10.10.50.246:93/";
             
             _registrationID = @"";
-            
             _zhuceTuisong = 0;
             
             //______________________________
@@ -46,7 +47,7 @@ static JJExtern *jj = nil;
 }
 
 
-
+//自动计算size
 - (CGSize)boundingRectWithSize:(CGSize)size text:(NSString *)text font:(UIFont *)font{
     if ([text isEqualToString:@""]) {
         text = @" ";
@@ -64,6 +65,34 @@ static JJExtern *jj = nil;
                       ].size;
     return retSize;
 }
+
+//获取文件或文件夹大小
+//遍历文件夹获得文件夹大小，返回多少M
+- (float ) folderSizeAtPath:(NSString*) folderPath{
+    NSFileManager* manager = [NSFileManager defaultManager];
+    if (![manager fileExistsAtPath:folderPath]) return 0;
+    NSEnumerator *childFilesEnumerator = [[manager subpathsAtPath:folderPath] objectEnumerator];
+    NSString* fileName;
+    long long folderSize = 0;
+    while ((fileName = [childFilesEnumerator nextObject]) != nil){
+        NSString* fileAbsolutePath = [folderPath stringByAppendingPathComponent:fileName];
+        folderSize += [self fileSizeAtPath:fileAbsolutePath];
+    }
+    return folderSize/(1024.0*1024.0);
+}
+//单个文件的大小
+- (float) fileSizeAtPath:(NSString*) filePath{
+    //    NSData* data = [NSData dataWithContentsOfFile:[VoiceRecorderBaseVC getPathByFileName:_convertAmr ofType:@"amr"]];
+    //    NSLog(@"amrlength = %d",data.length);
+    //    NSString * amr = [NSString stringWithFormat:@"amrlength = %d",data.length];
+    NSFileManager* manager = [NSFileManager defaultManager];
+    if ([manager fileExistsAtPath:filePath]){
+        return [[manager attributesOfItemAtPath:filePath error:nil] fileSize]/(1024.0*1024);
+    }
+    return 0;
+    
+}
+
 
 - (NSString *)differentString{
     NSDate *senddate = [NSDate date];

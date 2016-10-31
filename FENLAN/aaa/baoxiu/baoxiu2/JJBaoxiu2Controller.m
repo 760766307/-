@@ -149,12 +149,30 @@ UITableViewDataSource
 }
 - (void)buttonClick:(UIButton *)button{
     [self.view endEditing:1];
+    
+    
+    
+    
+    if (_model.kehu.length < 1
+        ||_model.qishiShijian.length < 1
+        ||_model.jiezhiShijian.length < 1
+        ) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"查询条件有空白项,请补全." preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            return ;
+        }]];
+        [self presentViewController:alert animated:true completion:nil];
+        return;
+    }
+    
     [self showHudInView:self.view hint:@"Loading"];
+    
     NSDictionary *request = @{@"action"     :@"bxcs",
                               @"kh"       :_model.kehu,
                               @"kst"       :_model.qishiShijian,
                               @"wct"       :_model.jiezhiShijian,
                               };
+    
     JJDownload *jj = [JJDownload jj];
     [jj downloadDataWithURLString:[JJExtern sharedJJ].urlString andDictionary:request andSuccessBlock:^(NSDictionary *dataDictionary) {
         [self hideHud];
@@ -259,14 +277,14 @@ UITableViewDataSource
         [self.navigationController pushViewController:changeSchoolController animated:1];
     }else if (indexPath.row == 1) {
         _datePickerView = [[JJDatePickerView alloc] initWithViewController:self andJJDatePickerBlock:^(NSDictionary *dictionary) {
-            _model.qishiShijian = dictionary[@"title"];
+            _model.qishiShijian = dictionary[@"text"];
             [_tableView reloadData];
         }];
         [_datePickerView addTarget:self action:@selector(datePickerViewBackgroundClick:) forControlEvents:UIControlEventTouchUpInside];
         [_datePickerView begin];
     }else if (indexPath.row == 2) {
         _datePickerView = [[JJDatePickerView alloc] initWithViewController:self andJJDatePickerBlock:^(NSDictionary *dictionary) {
-            _model.jiezhiShijian = dictionary[@"title"];
+            _model.jiezhiShijian = dictionary[@"text"];
             [_tableView reloadData];
         }];
         [_datePickerView addTarget:self action:@selector(datePickerViewBackgroundClick:) forControlEvents:UIControlEventTouchUpInside];

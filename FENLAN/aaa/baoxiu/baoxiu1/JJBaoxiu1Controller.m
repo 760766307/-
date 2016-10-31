@@ -20,7 +20,6 @@ UITableViewDataSource
     NSMutableArray *_cellnameArray;
     UITableView *_tableView;
     
-    
     UIDatePicker *_datePicker;
     
     JJDatePickerView *_datePickerView;
@@ -155,6 +154,15 @@ UITableViewDataSource
                               @"zzq"        :_model.qiXian,
                               @"nr"         :_model.baoxiuNeirong,
                               };
+    
+    NSLog(@"%@",request);
+    
+    NSArray *key = [request allKeys];
+    for (int i = 0 ; i < key.count; i ++) {
+        NSLog(@"key:%@,value:%@",key[i],request[key[i]]);
+    }
+    
+    
     JJDownload *jj = [JJDownload jj];
     [jj downloadDataWithURLString:[JJExtern sharedJJ].urlString andDictionary:request andSuccessBlock:^(NSDictionary *dataDictionary) {
         NSLog(@"%@",dataDictionary);
@@ -216,6 +224,8 @@ UITableViewDataSource
             }else if (cell.cellTag == 2) {
                 JJGuzhangController *guzhangController = [[JJGuzhangController alloc] initWithBlock:^(NSDictionary *guzhangDictionary) {
                     
+                    NSLog(@"%@,%@,%@,%@,%@,%@,",guzhangDictionary[@"Code"],guzhangDictionary[@"HasChild"],guzhangDictionary[@"Name"],guzhangDictionary[@"jbn"],guzhangDictionary[@"lev"],guzhangDictionary[@"parent"]);
+                    
                     _model.guzhangCode = guzhangDictionary[@"Code"];
                     _model.guzhangHasChild = guzhangDictionary[@"HasChild"];
                     _model.guzhangID = guzhangDictionary[@"ID"];
@@ -224,6 +234,7 @@ UITableViewDataSource
                     _model.guzhangjbn = guzhangDictionary[@"jbn"];
                     _model.guzhanglev = guzhangDictionary[@"lev"];
                     _model.guzhangparent = guzhangDictionary[@"parent"];
+                    _model.guzhangSection = guzhangDictionary[@"guzhangSection"];
                     
                     [_tableView reloadData];
                     
@@ -236,7 +247,7 @@ UITableViewDataSource
                 [_tableView reloadData];
             }else if (cell.cellTag == 5) {
                 _datePickerView = [[JJDatePickerView alloc] initWithViewController:self andJJDatePickerBlock:^(NSDictionary *dictionary) {
-                    _model.qiXian = dictionary[@"title"];
+                    _model.qiXian = dictionary[@"text"];
                     [_tableView reloadData];
                 }];
                 [_datePickerView addTarget:self action:@selector(datePickerViewBackgroundClick:) forControlEvents:UIControlEventTouchUpInside];

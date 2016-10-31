@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <UIKit/UIKit.h>
 @interface JJBaoxiu1Model : NSObject
 
 //客户信息
@@ -25,7 +25,8 @@
 @property (nonatomic,copy)NSString *guzhangHasChild;
 @property (nonatomic,copy)NSString *guzhangparent;
 @property (nonatomic,copy)NSString *guzhangLeixing;
-
+@property (nonatomic,copy)NSString *guzhangSection;
+//section//
 
 @property (nonatomic,copy)NSString *baoxiuRen;
 @property (nonatomic,copy)NSString *baoxiuDianhua;
@@ -34,3 +35,10 @@
 
 
 @end
+
+
+
+
+
+
+

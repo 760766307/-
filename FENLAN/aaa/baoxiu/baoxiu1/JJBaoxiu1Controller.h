@@ -17,6 +17,7 @@
 
 #import "JJChangeController.h"
 #import "JJGuzhangController.h"
+#import "JJBaoxiu1Model.h"
 
 
 

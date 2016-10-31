@@ -31,7 +31,8 @@
         _guzhangHasChild = @"";
         _guzhangparent = @"";
         _guzhangLeixing = @"";
-        
+        _guzhangSection = @"";
+
         
         _baoxiuRen = @"";
         _baoxiuDianhua = @"";
@@ -57,6 +58,7 @@
 - (void)setGuzhangName:(NSString *)guzhangName{
     _guzhangName = guzhangName;
     _guzhangLeixing = [NSString stringWithFormat:@"%@ - %@",_guzhangjbn,_guzhangName];
+    
 }
 
 

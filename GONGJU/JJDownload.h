@@ -17,10 +17,13 @@
 
 typedef void (^JJDownloadSuccessBlock)(NSDictionary *dataDictionary);
 
+
+typedef void (^JJDownloadUploadingBlock)(NSDictionary *dataDictionary);
+
 typedef void (^JJDownloadErrorBlock)(int CanBeConnected,NSDictionary *dataDictionary);
 
 
-
+//uploading
 
 + (instancetype)jj;
 
@@ -28,6 +31,7 @@ typedef void (^JJDownloadErrorBlock)(int CanBeConnected,NSDictionary *dataDictio
 
 - (void)downloadDataWithURLString:(NSString *)urlString andDictionary:(NSDictionary *)dictionary andSuccessBlock:(JJDownloadSuccessBlock)successBlock andErrorBlock:(JJDownloadErrorBlock)errorBlock;
 
+- (void)downloadDataWithURLString:(NSString *)urlString andDictionary:(NSDictionary *)dictionary andFileArray:(NSArray *)fileArray andUploadingBlock:(JJDownloadUploadingBlock)uploadingBlock andSuccessBlock:(JJDownloadSuccessBlock)successBlock andErrorBlock:(JJDownloadErrorBlock)errorBlock;
 
 
 

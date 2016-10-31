@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "JJDingdan2Cell.h"
-
+#import "JJWanchengController.h"
 
 @interface JJDingdan2Controller : UIViewController
 

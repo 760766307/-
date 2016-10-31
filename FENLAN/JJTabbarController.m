@@ -82,8 +82,8 @@
     _cccNC.navigationBar.tintColor = [UIColor colorWithRed:0.08f green:0.33f blue:0.20f alpha:1.00f];
     [_cccNC.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:19],NSForegroundColorAttributeName:[UIColor colorWithRed:0.08f green:0.33f blue:0.20f alpha:1.00f]}];
     
-    self.viewControllers = @[_aaaNC,_bbbNC,_cccNC];
-    //    self.viewControllers = @[aaaController,bbbController,cccController];
+//    self.viewControllers = @[_aaaNC,_bbbNC,_cccNC];
+    self.viewControllers = @[_aaaNC,_cccNC];
 }
 
 

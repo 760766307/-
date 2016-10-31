@@ -17,9 +17,14 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [self zhuceTuisongWithApplication:application didFinishLaunchingWithOptions:launchOptions andUUIDString:[JJExtern sharedJJ].registrationID];
     
-
+//    NSLog(@"%@",[NSDictionary dictionaryWithObjectsAndKeys:@"userHeader.png",@"userHeader", @"image.png",@"image",nil]);
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *path = [paths objectAtIndex:0];
+    [[NSFileManager defaultManager] removeItemAtPath:[NSString stringWithFormat:@"%@/tijiaodingdan", path] error:nil];
+    
+    [self zhuceTuisongWithApplication:application didFinishLaunchingWithOptions:launchOptions andUUIDString:[JJExtern sharedJJ].registrationID];
     [JPUSHService registrationIDCompletionHandler:^(int resCode, NSString *registrationID) {
         NSLog(@"杨剑~~~~~~~~~~~~~resCode : %d,registrationID: %@",resCode,registrationID);
         [JJExtern sharedJJ].registrationID = registrationID;
@@ -115,13 +120,13 @@
     // Required, iOS 7 Support
     [JPUSHService handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
-    [[self getCurrentViewController]showHint:@"有新消息"];
+    [[self getCurrentViewController] showHint:@"有新消息"];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     // Required,For systems with less than or equal to iOS6
     [JPUSHService handleRemoteNotification:userInfo];
-    [[self getCurrentViewController]showHint:@"有新消息"];
+    [[self getCurrentViewController] showHint:@"有新消息"];
 }
 
 

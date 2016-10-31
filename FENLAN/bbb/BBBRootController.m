@@ -9,11 +9,10 @@
 #import "BBBRootController.h"
 
 @interface BBBRootController ()
-<
-UITableViewDelegate,
-UITableViewDataSource,
-UISearchBarDelegate
->
+//<
+//UITableViewDelegate,
+//UITableViewDataSource
+//>
 {
     
     //    int _buttonHeight;
@@ -63,20 +62,15 @@ UISearchBarDelegate
     // Do any additional setup after loading the view.
 
 
+    UILabel *zhanghaoLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 100, SIZE.width - 60, 35)];
+    zhanghaoLabel.textColor = [UIColor colorWithRed:0.78f green:0.58f blue:0.00f alpha:1.00f];
+        zhanghaoLabel.textAlignment = 1;
+    zhanghaoLabel.text = @"暂无新通知";
+    [self.view addSubview:zhanghaoLabel];
     
-    
 }
 
 
-
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
 
 
 

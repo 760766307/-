@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #define XIA 30
 
-@interface ViewController ()<JPUSHRegisterDelegate>
+@interface ViewController ()//<JPUSHRegisterDelegate>
 {
     //    UITextField *_changeTextField;
     UITextField *_zhanghaoTextField;
@@ -173,7 +173,8 @@
     [forgetButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:forgetButton];
     
-    
+    codeButton.hidden = 1;
+    forgetButton.hidden = 1;
     
     UILabel *endLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, SIZE.height - 50, SIZE.width - 60, 40)];
     endLabel.font = [UIFont systemFontOfSize:13];
@@ -242,6 +243,7 @@
                                   };
         JJDownload *jj = [JJDownload jj];
         [jj downloadDataWithURLString:[JJExtern sharedJJ].urlString andDictionary:request andSuccessBlock:^(NSDictionary *dataDictionary) {
+//            [self hideHud];
             [self hideHud];
             NSLog(@"%@",dataDictionary);
             if ([dataDictionary[@"resultcode"] intValue] == 1){
@@ -262,7 +264,9 @@
                 [self presentViewController:alert animated:true completion:nil];
             }
         } andErrorBlock:^(int CanBeConnected, NSDictionary *dataDictionary) {
+//            [self hideHud];
             [self hideHud];
+
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"网络连接失败,请检查网络连接." preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 return ;
@@ -278,10 +282,12 @@
                                       @"Upass"      :mima,
                                       @"RegID"      :[JJExtern sharedJJ].registrationID,//
                                       };
-            [self showHudInView:self.view hint:hudString];
+//            [self showHudInView:self.view hint:hudString];
             JJDownload *jj = [JJDownload jj];
             [jj downloadDataWithURLString:[JJExtern sharedJJ].urlString andDictionary:request andSuccessBlock:^(NSDictionary *dataDictionary) {
+//                [self hideHud];
                 [self hideHud];
+
                 NSLog(@"%@",dataDictionary);
                 if ([dataDictionary[@"resultcode"] intValue] == 1){
                     NSLog(@"%@",dataDictionary);
@@ -301,7 +307,9 @@
                     [self presentViewController:alert animated:true completion:nil];
                 }
             } andErrorBlock:^(int CanBeConnected, NSDictionary *dataDictionary) {
+//                [self hideHud];
                 [self hideHud];
+
                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"网络连接失败,请检查网络连接." preferredStyle:UIAlertControllerStyleAlert];
                 [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     return ;
@@ -332,19 +340,11 @@
 
 
 - (void)forgetPassword{
-    if (([JJExtern sharedJJ].urlString == NULL)) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请先选择学校" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            return ;
-        }]];
-        [self presentViewController:alert animated:true completion:nil];
-        return;
-    }
-    //忘记密码
-    //    FindPasswordViewController *passwordViewController = [[FindPasswordViewController alloc] init];
-    //    UINavigationController *passwordNavigationController = [[UINavigationController alloc] initWithRootViewController:passwordViewController];
-    //    [self presentViewController:passwordNavigationController animated:YES completion:^{
-    //    }];
+    
+    
+    
+    
+    
 }
 
 

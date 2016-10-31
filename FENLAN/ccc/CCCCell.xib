@@ -15,7 +15,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FvP-gL-3R2">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xinkao.png" translatesAutoresizingMaskIntoConstraints="NO" id="FvP-gL-3R2">
                         <rect key="frame" x="8" y="8" width="33" height="33"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="33" id="MNv-ri-gG6"/>
@@ -28,7 +28,7 @@
                             <constraint firstAttribute="height" constant="21" id="OrB-5O-Px0"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当前版本:1.0.1" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2gV-Ae-vd7">
@@ -60,4 +60,7 @@
             <point key="canvasLocation" x="358" y="240"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="xinkao.png" width="120" height="120"/>
+    </resources>
 </document>

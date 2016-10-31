@@ -71,7 +71,7 @@ UITableViewDataSource
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 50;
+    return 45;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -87,15 +87,16 @@ UITableViewDataSource
     if (!cell) {
         cell = [[NSBundle mainBundle] loadNibNamed:@"JJChaxunJieguoCell" owner:self options:nil][0];
     }
-//    bxcs = 1;
-//    glx = "\U4e3b\U677f\U95ee\U9898";
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ - %@",_dataArray[indexPath.row][@"bxcs"],_dataArray[indexPath.row][@"glx"]];
+    [cell changeDataWithDictionary:_dataArray[indexPath.row]];
+
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
 
+    JJBaoxiuXiangqingController *controller = [[JJBaoxiuXiangqingController alloc] initWithBaoxiuDictionary:_dataArray[indexPath.row]];
+    [self.navigationController pushViewController:controller animated:1];
 }
 
 

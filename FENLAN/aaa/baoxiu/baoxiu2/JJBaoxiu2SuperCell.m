@@ -31,6 +31,6 @@
 - (void)changeDataWithModel:(JJBaoxiu2Model *)model{}
 
 
-
-
 @end
+
+

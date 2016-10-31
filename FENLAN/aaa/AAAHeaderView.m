@@ -16,11 +16,8 @@
     if (self) {
         _label = [[UILabel alloc] initWithFrame:self.frame];
         _label.backgroundColor = [UIColor orangeColor];
-        
         _label.textAlignment = 1;
-        
         [self addSubview:_label];
-        
     }
     return self;
 }

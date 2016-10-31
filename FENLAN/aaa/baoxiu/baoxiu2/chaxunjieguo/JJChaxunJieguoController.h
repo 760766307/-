@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "JJBaoxiuXiangqingController.h"
+
 #import "JJChaxunJieguoCell.h"
 
 @interface JJChaxunJieguoController : UIViewController

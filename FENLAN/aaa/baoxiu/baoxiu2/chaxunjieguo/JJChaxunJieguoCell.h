@@ -10,4 +10,12 @@
 
 @interface JJChaxunJieguoCell : UITableViewCell
 
+
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *indexLabel;
+
+
+- (void)changeDataWithDictionary:(NSDictionary *)dictionary;
+
 @end

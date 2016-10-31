@@ -49,7 +49,13 @@ typedef void (^JJExternSignBlock)(int tuisongChenggong);
 @property (nonatomic)int zhuceTuisong;
 
 + (JJExtern *)sharedJJ;
+
+- (NSString *)differentString;
+
 - (CGSize)boundingRectWithSize:(CGSize)size text:(NSString *)text font:(UIFont *)font;
+
+- (float) fileSizeAtPath:(NSString *) filePath;
+
 
 @end
 

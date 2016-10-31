@@ -181,33 +181,28 @@
     
     NSDate *date = [self getNowDateFromatAnWorldDate:_datePicker.date];
     
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+//        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//        [formatter setDateFormat:@"YYYY/MM/dd HH:mm:ss"];
+//    NSLog(@"%@~~~~~~~~~~~~~~~~~~",[formatter dateFromString:[NSString stringWithFormat:@"%@",date]]);
     
-    NSLog(@"%@~~~~~~~~~~~~~~~~~~",[formatter dateFromString:[NSString stringWithFormat:@"%@",date]]);
     
     //(_shangwuButton.selected?@"上午":@"下午"
 //    [date description];
-    
     //    NSString *title = [NSString stringWithFormat:@"%@ %@",[[date description] substringWithRange:NSMakeRange(0, 10)],_shangwuButton.selected?@"上午":@"下午"];
     //    NSString *title1 = [NSString stringWithFormat:@"%@ %@",[[NSString stringWithFormat:@"%@",_datePicker.date] substringWithRange:NSMakeRange(0, 10)],_shangwuButton.selected?@"上午":@"下午"];
 
-    NSString *title = [[date description] substringWithRange:NSMakeRange(0, 16)];
+    NSString *text = [[[date description] substringWithRange:NSMakeRange(0, 16)] stringByReplacingOccurrencesOfString:@"-" withString:@"/"];
 
     
     
-    
-    
     if (_block) {
-        _block(@{@"tag":[NSString stringWithFormat:@"%ld",button.tag],
-                 @"title":title,
-//                 @"noon":_shangwuButton.selected?@"上午":@"下午",
+        _block(@{@"tag":[NSString stringWithFormat:@"%ld",(long)button.tag],
+                 @"text":text,
                  @"nian":[[date description] substringWithRange:NSMakeRange(0, 4)],
                  @"yue":[[date description] substringWithRange:NSMakeRange(5, 2)],
                  @"ri":[[date description] substringWithRange:NSMakeRange(8, 2)]
                  });
     }
-    
     [self end];
 }
 
